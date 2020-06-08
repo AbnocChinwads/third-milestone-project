@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--Bootstrap 4/ Font Awesome import-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <!--Custom CSS-->
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+	<title>Third Milestone Project</title>
+</head>
+
+<body>
+    <!--Header-->
+	<header>
+		<div class="row no-gutters">
+			<div class="col-md">
+				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+					<button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item">
+								<a class="nav-link" href="{{ url_for('index')}}"> <i class="fas fa-home"
+                                aria-hidden="true"></i></a>
+							</li>
+                            <li>
+                                <a class="nav-link" href="{{ url_for('login')}}"><i class="fas fa-sign-in-alt"
+                                aria-hidden="true"></i></a>
+                            </li>
+							<li class="nav-item">
+								<a class="nav-link" href="{{ url_for('about')}}"> <i
+                                class="fas fa-unlock" aria-hidden="true"></i></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{{ url_for('contact')}}"> <i
+                                class="fas fa-tasks" aria-hidden="true"></i></a>
+							</li>
+						</ul>
+					</div>
+                    <div class="col-7">
+                        {% block header %}
+                        
+                        {% endblock %}
+                    </div>
+					<div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="darkModeSwitch">
+                        <label class="custom-control-label" for="darkModeSwitch"></label>
+                    </div>
+				</nav>
+			</div>
+		</div>
+	</header>
+    <!--Main Content-->
+	<section>
+        <div class="container-fluid">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+	</section>
+    <!--Footer-->
+	<footer>
+		<div class="row no-gutters">
+			<div class="col">
+				<a class="anchor-styling" href="https://www.facebook.com/" target="_blank">
+					<i class="fab fa-facebook-square" aria-hidden="true"></i></a>
+				<a class="anchor-styling" href="https://www.twitter.com/" target="_blank">
+					<i class="fab fa-twitter-square" aria-hidden="true"></i></a>
+				<a class="anchor-styling" href="https://www.instagram.com/" target="_blank">
+					<i class="fab fa-instagram" aria-hidden="true"></i></a>
+				<br>Copyright information for images goes here
+            </div>
+			</div>
+	</footer>
+    <!--Bootstrap jQuery-->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <!--Custom jQuery/JavaScript-->
+	<script src="{{ url_for('static', filename='darkMode.js')}}"></script>
+</body>
+
+</html>

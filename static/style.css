@@ -1,0 +1,100 @@
+/*--------------------------------------------------------- Body*/
+
+body {
+    position: relative;
+    min-height: 100vh;
+    background-color: #fff;
+    color: #343a40;
+    padding-bottom: 2rem; /* Footer position */
+}
+
+/*--------------------------------------------------------- Header*/
+
+.heading-centre {
+    text-align: center;
+}
+
+.heading-style-uppercase {
+    text-transform: uppercase;
+}
+
+/*--------------------------------------------------------- Switch*/
+
+.custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #fff;
+}
+
+.custom-control-input ~ .custom-control-label::before {
+    background-color: #343a40;
+}
+
+.custom-control-input ~ .custom-control-label::after {
+    background-color: #fff;
+}
+
+.custom-control-input:checked ~ .custom-control-label::after {
+    background-color: #343a40 !important;
+}
+
+/*--------------------------------------------------------- Footer*/
+
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #fff;
+    text-align: center;
+}
+
+.anchor-styling {
+    padding: 0.5em;
+    color: #343a40;
+}
+
+/*--------------------------------------------------------- Dark Mode*/
+
+.body-dark {
+    background-color: #343a40;
+    color: #daa520;
+}
+
+.footer-dark {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #343a40;
+    color: #daa520;
+    text-align: center;
+}
+
+.anchor-styling-dark {
+    padding: 0.5em;
+    color: #daa520;
+}
+
+/*--------------------------------------------------------- Media Queries*/
+
+@media (prefers-color-scheme: dark) {
+    
+    .body-dark {
+    background-color: #343a40;
+    color: #daa520;
+    }
+
+    .footer-dark {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #343a40;
+        color: #daa520;
+        text-align: center;
+    }
+
+    .anchor-styling-dark {
+        padding: 0.5em;
+        color: #daa520;
+    }
+}
