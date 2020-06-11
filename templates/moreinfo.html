@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+
+{% block header %}
+<h1 class="heading-style-uppercase">{{creature.creature_name}}</h1>
+{% endblock %}
+
+{% block content %}
+
+{{creature.creature_stats}}
+
+{% endblock %}

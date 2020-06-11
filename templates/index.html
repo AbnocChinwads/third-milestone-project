@@ -23,7 +23,7 @@
         <th>Legendary</th>
     </tr>
     <tr>
-        <td>{{creature.creature_name}}</td>
+        <td><a href="{{ url_for('more_info', creature_id=creature._id)}}">{{creature.creature_name}}</a></td>
         <td>{{creature.challenge_rating}}</td>
         <td>{{creature.creature_type}}</td>
         <td>{{creature.creature_size}}</td>
@@ -40,6 +40,10 @@
         </td>
     </tr>
 </table>
+
+    {% for stat in creature_stats %}
+        
+    {% endfor %}
 
 {% endfor %}
 
