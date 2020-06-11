@@ -31,7 +31,13 @@
         <td>{{creature.creature_hp}}</td>
         <td>{{creature.creature_speed}}</td>
         <td>{{creature.creature_alignment}}</td>
-        <td>{{creature.legendary}}</td>
+        <td>
+        {% if creature.legendary == None %}
+        <input type="checkbox" name="legendary" disabled>
+        {% else %}
+        <input type="checkbox" name="legendary" checked disabled>
+        {% endif %}
+        </td>
     </tr>
 </table>
 
