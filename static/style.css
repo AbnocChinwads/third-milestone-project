@@ -3,7 +3,7 @@
 body {
     position: relative;
     min-height: 100vh;
-    background-color: #fff;
+    background-color: #f2f2f2;
     color: #343a40;
     padding-bottom: 2rem; /* Footer position */
 }
@@ -36,6 +36,18 @@ body {
     background-color: #343a40 !important;
 }
 
+/*--------------------------------------------------------- Table*/
+
+tr:nth-child(even) {
+    background-color: #fafaf8;
+}
+
+th, td {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    text-align: center;
+}
+
 /*--------------------------------------------------------- Footer*/
 
 footer {
@@ -43,7 +55,7 @@ footer {
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: #fff;
+    background-color: #f8f9fa;
     text-align: center;
 }
 

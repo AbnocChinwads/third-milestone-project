@@ -6,19 +6,21 @@ from bson.objectid import ObjectId
 if path.exists("env.py"):
     import env
 
-
 app = Flask(__name__)
 
 app.config["MONGO_DBNAME"] = "third_milestone_project"
 app.config["MONGO_URI"] = os.getenv("MONGO_URI")
-app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 mongo = PyMongo(app)
 
+# Tasks
 
-@app.route("/")
-def index():
-    return render_template("index.html")
+
+@app.route("/")  # Display main task page
+@app.route("/get_creatures")
+def get_creatures():
+    return render_template("index.html",
+                           creatures=mongo.db.creatures.find())
 
 
 @app.route("/login")

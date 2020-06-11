@@ -8,13 +8,33 @@
 
 {% block content %}
 
-<div class="row no-gutters">
-	<div class="col">
-		<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad, eveniet ipsam dolorum dicta odio repellendus
-			fugit deserunt illo labore harum cumque dolor, itaque eos quae consectetur tempore voluptatum excepturi sed!
-			Rem illo necessitatibus distinctio, eius eligendi, labore odio rerum laborum iste obcaecati, quibusdam quia
-			dignissimos dolorum natus dolores fuga excepturi!</p>
-	</div>
-</div>
+{% for creature in creatures %}
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>CR</th>
+        <th>Type</th>
+        <th>Size</th>
+        <th>AC</th>
+        <th>HP</th>
+        <th>Speed</th>
+        <th>Alignment</th>
+        <th>Legendary</th>
+    </tr>
+    <tr>
+        <td>{{creature.creature_name}}</td>
+        <td>{{creature.challenge_rating}}</td>
+        <td>{{creature.creature_type}}</td>
+        <td>{{creature.creature_size}}</td>
+        <td>{{creature.creature_ac}}</td>
+        <td>{{creature.creature_hp}}</td>
+        <td>{{creature.creature_speed}}</td>
+        <td>{{creature.creature_alignment}}</td>
+        <td>{{creature.legendary}}</td>
+    </tr>
+</table>
+
+{% endfor %}
 
 {% endblock %}
