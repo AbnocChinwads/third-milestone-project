@@ -36,19 +36,6 @@ body {
     background-color: #343a40 !important;
 }
 
-/*--------------------------------------------------------- Table*/
-
-tr:nth-child(even) {
-    background-color: #fafaf8;
-}
-
-th, td {
-    padding-left: 1rem;
-    padding-right: 1rem;
-    text-align: center;
-    vertical-align: middle;
-}
-
 /*--------------------------------------------------------- Footer*/
 
 footer {
@@ -73,10 +60,6 @@ footer {
 }
 
 .footer-dark {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
     background-color: #343a40;
     color: #daa520;
     text-align: center;
@@ -92,15 +75,12 @@ footer {
 @media (prefers-color-scheme: dark) {
     
     .body-dark {
-    background-color: #343a40;
-    color: #daa520;
+        background-color: #343a40;
+        color: #daa520;
     }
 
     .footer-dark {
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 100%;
+
         background-color: #343a40;
         color: #daa520;
         text-align: center;
