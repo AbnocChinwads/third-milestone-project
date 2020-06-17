@@ -8,10 +8,14 @@
 
 {% block content %}
 
-{% for story in creatures %}
-<blockquote class="scrollbar">
-{{story.story}}
-</blockquote>
+{% for name in game_list %}
+
+<ul>
+	<li>
+		<a href="{{ url_for('more_info', game_list_id=game_list._id)}}">{{name.game_name}}</a>
+	</li>
+</ul>
+
 {% endfor %}
 
 {% endblock %}

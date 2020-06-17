@@ -3,11 +3,22 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<h1 class="heading-style-uppercase">{{creature.creature_name}}</h1>
+
+<h1 class="heading-style-uppercase">Game Name</h1>
+
 {% endblock %}
 
 {% block content %}
 
-{{creature.creature_stats}}
+{% for name in game_list %}
+<ul>
+	<li>
+		{{name.game_genre}}
+	</li>
+	<li>
+		{{name.game_pegi_rating}}
+	</li>
+</ul>
+{% endfor %}
 
 {% endblock %}
