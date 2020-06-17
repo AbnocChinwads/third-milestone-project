@@ -4,13 +4,17 @@
 
 {% block header %}
 
-<h1 class="heading-style-uppercase">Game Name</h1>
+{% for name in game_list %}
+
+<h1 class="heading-style-uppercase">{{game.game_list}}</h1>
+
+{% endfor %}
 
 {% endblock %}
 
 {% block content %}
 
-{% for name in game_list %}
+<!--{% for name in game_list %}
 <ul>
 	<li>
 		{{name.game_genre}}
@@ -19,6 +23,12 @@
 		{{name.game_pegi_rating}}
 	</li>
 </ul>
-{% endfor %}
+{% endfor %}-->
 
 {% endblock %}
+
+<!--{% if cat.category_name == task.category_name %}
+<option value="{{cat.category_name}}" selected >{{cat.category_name}}</option>
+{% else %}
+<option value="{{cat.category_name}}" selected >{{cat.category_name}}</option>
+{% endif %}-->

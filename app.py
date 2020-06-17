@@ -26,9 +26,10 @@ def game_list():
 
 @app.route("/moreinfo/<game_list_id>")
 def more_info(game_list_id):
-    mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
+    the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
+    all_categories = mongo.db.categories.find()
     return render_template("moreinfo.html",
-                           game_list=mongo.db.game_list.find())
+                           game=the_game, categories=all_categories)
 
 
 """
