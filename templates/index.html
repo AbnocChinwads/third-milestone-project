@@ -3,19 +3,37 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<h1 class="heading-style-uppercase">Landing Page</h1>
+<h1 class="heading-style-uppercase">Video Game Reviews</h1>
 {% endblock %}
 
 {% block content %}
-
-{% for game in game_list %}
-
-<ul>
-	<li>
-		<a href="{{ url_for('more_info', game_list_id=game._id)}}">{{game.game_name}}</a>
-	</li>
-</ul>
-
-{% endfor %}
+<!--Table generates a list of relevant information from database values-->
+<table>
+	<tr>
+		<th>
+			Name
+		</th>
+		<th>
+			Genre
+		</th>
+		<th>
+			PEGI Rating
+		</th>
+	</tr>
+	{% for game in game_list %}
+	<tr>
+		<td>
+            <!--Links to a page that displays the game title as a h1 in the navbar-->
+			<a href="{{ url_for('more_info', game_list_id=game._id)}}">{{game.game_name}}</a>
+		</td>
+		<td>
+			{{game.game_genre}}
+		</td>
+		<td>
+			{{game.game_pegi_rating}}
+		</td>
+	</tr>
+	{% endfor %}
+</table>
 
 {% endblock %}

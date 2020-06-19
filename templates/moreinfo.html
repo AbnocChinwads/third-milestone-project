@@ -4,27 +4,19 @@
 
 {% block header %}
 
-{% for cat in categories %}
+<h1 class="heading-style-uppercase">
+{% if game == game._id %}
 
-<h1 class="heading-style-uppercase">{{cat.game_name}}</h1>
+{{game.game_name}}
 
-{% endfor %}
+{% endif %}
+
+</h1>
 
 {% endblock %}
 
 {% block content %}
 
-{% for cat in categories %}
-
-<ul>
-	<li>
-		{{cat.game_genre}}
-	</li>
-	<li>
-		{{cat.game_pegi_rating}}
-	</li>
-</ul>
-
-{% endfor %}
+<span>Hello World!</span>
 
 {% endblock %}

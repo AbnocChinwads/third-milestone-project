@@ -10,14 +10,6 @@ body {
 
 /*--------------------------------------------------------- Header*/
 
-.heading-centre {
-    text-align: center;
-}
-
-.heading-style-uppercase {
-    text-transform: uppercase;
-}
-
 /*--------------------------------------------------------- Switch*/
 
 .custom-control-input:checked ~ .custom-control-label::before {
@@ -25,15 +17,21 @@ body {
 }
 
 .custom-control-input ~ .custom-control-label::before {
-    background-color: #343a40;
+    background-color: #343a40; /* Background colour of unchecked slider */
 }
 
 .custom-control-input ~ .custom-control-label::after {
-    background-color: #fff;
+    background-color: #fff; /* Colour of sliding dot when slider is unchecked */
 }
 
 .custom-control-input:checked ~ .custom-control-label::after {
     background-color: #343a40 !important;
+}
+
+/*--------------------------------------------------------- Table*/
+
+th, td {
+    padding: 1rem;
 }
 
 /*--------------------------------------------------------- Footer*/
@@ -48,7 +46,7 @@ footer {
 }
 
 .anchor-styling {
-    padding: 0.5em;
+    padding: 0.5em; /* Space between social media links */
     color: #343a40;
 }
 
@@ -73,7 +71,11 @@ footer {
 /*--------------------------------------------------------- Media Queries*/
 
 @media (prefers-color-scheme: dark) {
-    
+    /* 
+        If user has preferred colour scheme set to dark,
+        these values will be used instead of the regular
+        lighter values 
+    */
     .body-dark {
         background-color: #343a40;
         color: #daa520;
