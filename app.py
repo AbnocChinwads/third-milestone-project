@@ -74,11 +74,6 @@ def login():
     return render_template("login.html")
 
 
-@app.route("/about")  # This isn't necessarily needed
-def about():
-    return render_template("about.html")
-
-
 @app.route("/contactus")  # Contact information page poss using an email API
 def contact():
     return render_template("contact.html")

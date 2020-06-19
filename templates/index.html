@@ -8,11 +8,11 @@
 
 {% block content %}
 
-{% for name in game_list %}
+{% for game in game_list %}
 
 <ul>
 	<li>
-		<a href="{{ url_for('more_info', game_list_id=game_list._id)}}">{{name.game_name}}</a>
+		<a href="{{ url_for('more_info', game_list_id=game._id)}}">{{game.game_name}}</a>
 	</li>
 </ul>
 

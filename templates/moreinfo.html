@@ -4,9 +4,9 @@
 
 {% block header %}
 
-{% for name in game_list %}
+{% for cat in categories %}
 
-<h1 class="heading-style-uppercase">{{game.game_list}}</h1>
+<h1 class="heading-style-uppercase">{{cat.game_name}}</h1>
 
 {% endfor %}
 
@@ -14,21 +14,17 @@
 
 {% block content %}
 
-<!--{% for name in game_list %}
+{% for cat in categories %}
+
 <ul>
 	<li>
-		{{name.game_genre}}
+		{{cat.game_genre}}
 	</li>
 	<li>
-		{{name.game_pegi_rating}}
+		{{cat.game_pegi_rating}}
 	</li>
 </ul>
-{% endfor %}-->
+
+{% endfor %}
 
 {% endblock %}
-
-<!--{% if cat.category_name == task.category_name %}
-<option value="{{cat.category_name}}" selected >{{cat.category_name}}</option>
-{% else %}
-<option value="{{cat.category_name}}" selected >{{cat.category_name}}</option>
-{% endif %}-->
