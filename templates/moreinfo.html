@@ -5,11 +5,15 @@
 {% block header %}
 
 <h1 class="heading-style-uppercase">
-{% if game == game._id %}
+{% for cat in categories %}
 
-{{game.game_name}}
+{% if cat.game_name == game.game_name %}
+
+{{cat.game_name}}
 
 {% endif %}
+
+{% endfor %}
 
 </h1>
 
@@ -17,6 +21,10 @@
 
 {% block content %}
 
-<span>Hello World!</span>
+{% for cat in categories %}
+
+{{cat.game_image}}
+
+{% endfor %}
 
 {% endblock %}

@@ -24,7 +24,7 @@ def game_list():
 # Read Function
 
 
-@app.route("/moreinfo/<game_list_id>")
+@app.route("/moreinfo/<game_list_id>", methods=["GET"])
 def more_info(game_list_id):
     the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
     all_categories = mongo.db.game_list.find()
@@ -45,7 +45,7 @@ def add_game():
         "game_name": value,
         "game_genre": value,
         "game_pegi_rating": value,
-        "review": value,
+        "game_image": value,
     })
     return redirect("index",
                     add modal/alert with message
@@ -97,13 +97,13 @@ use similar method to update document.
 TODO:
     * Create login system, and use database to store usernames and passwords
     * Allow only the deletion of information the logged in user has posted
+"""
 
 
 @app.route("/login")
 def login():
     return render_template("login.html")
 
-"""
 
 """
 Not 100% sure this is needed, but business convention requires
