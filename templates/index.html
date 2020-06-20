@@ -24,7 +24,9 @@
 	<tr>
 		<td>
             <!--Links to a page that displays the game title as a h1 in the navbar-->
-			<a href="{{ url_for('more_info', game_list_id=game._id)}}">{{game.game_name}}</a>
+			<a class ="clickable-name" href="{{ url_for('more_info', game_list_id=game._id)}}">
+                <i class="fas fa-link"></i> {{game.game_name}}
+            </a>
 		</td>
 		<td>
 			{{game.game_genre}}

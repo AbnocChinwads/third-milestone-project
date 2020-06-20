@@ -2,28 +2,17 @@
 
 {% extends 'base.html' %}
 
-{% block header %}
-
-<h1 class="heading-style-uppercase">
-{% for cat in categories %}
-
-{% if cat.game_name == game.game_name %}
-
-{{cat.game_name}}
-
-{% endif %}
-
-{% endfor %}
-
-</h1>
-
-{% endblock %}
-
 {% block content %}
 
 {% for cat in categories %}
 
-{{cat.game_image}}
+{% if cat.game_name == game.game_name %}
+
+<h2 class="heading-centred heading-style-uppercase">{{cat.game_name}}</h2>
+
+<img src="{{cat.game_image}}" alt="" srcset="">
+
+{% endif %}
 
 {% endfor %}
 
