@@ -10,10 +10,21 @@
 
 <h2 class="heading-centred heading-style-uppercase">{{cat.game_name}}</h2>
 
-<img src="{{cat.game_image}}" alt="" srcset="">
+<div>
+<img src="{{cat.game_image}}" alt="image of game cover art">
+</div>
 
 {% endif %}
 
 {% endfor %}
+
+<div class="collapse" id="showReviewSubmit">
+	<input class="review-textbox" type="text" name="review" id="addReview">
+</div>
+
+<button class="btn btn-primary" type="button" data-toggle="collapse"
+data-target="#showReviewSubmit" aria-expanded="false" aria-controls="addReview">
+    Add Review
+</button>
 
 {% endblock %}

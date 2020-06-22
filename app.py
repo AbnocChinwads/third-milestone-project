@@ -16,7 +16,7 @@ mongo = PyMongo(app)
 
 
 @app.route("/")  # Display main page with paginated list
-@app.route("/game_list")
+@app.route("/game-list")
 def game_list():
     return render_template("index.html",
                            game_list=mongo.db.game_list.find())
@@ -24,7 +24,7 @@ def game_list():
 # Read Function
 
 
-@app.route("/moreinfo/<game_list_id>", methods=["GET"])
+@app.route("/more-info/<game_list_id>")
 def more_info(game_list_id):
     the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
     all_categories = mongo.db.game_list.find()

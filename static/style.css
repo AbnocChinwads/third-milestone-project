@@ -5,7 +5,7 @@ body {
     min-height: 100vh;
     background-color: #f2f2f2;
     color: #343a40;
-    padding-bottom: 2rem; /* Footer position */
+    padding-bottom: 4rem; /* Footer position */
 }
 
 /*--------------------------------------------------------- Header*/
@@ -54,6 +54,19 @@ th, td {
 
 a:hover {
     color: #daa520; /* Bring hover colour inline with colour scheme */
+}
+
+/*--------------------------------------------------------- Buttons*/
+
+.btn-padding {
+    margin-top: 1rem;
+    margin-left:4.5rem;
+}
+
+.review-textbox {
+    margin: 1rem 0rem;
+    height: 10rem;
+    width: 20rem;
 }
 
 /*--------------------------------------------------------- Footer*/
