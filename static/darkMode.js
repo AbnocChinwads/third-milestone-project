@@ -5,6 +5,7 @@ if(darkMode) {
     $("#darkModeSwitch").prop("checked", true);
     $("body").toggleClass("body-dark");
     $("nav").toggleClass("navbar-dark bg-dark");
+    $("table").toggleClass("table-colour");
     $("footer").toggleClass("footer-dark");
     $("a").toggleClass("anchor-styling-dark");
 }
@@ -22,6 +23,7 @@ $("#darkModeSwitch").change(function() {
     
     $("body").toggleClass("body-dark", darkMode);
     $("nav").toggleClass("navbar-dark bg-dark", darkMode);
+    $("table").toggleClass("table-colour");
     $("footer").toggleClass("footer-dark", darkMode);
     $("a").toggleClass("anchor-styling-dark", darkMode);
 });
