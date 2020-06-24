@@ -58,9 +58,8 @@ a:hover {
 
 /*--------------------------------------------------------- Buttons*/
 
-.btn-padding {
-    margin-top: 1rem;
-    margin-left:4.5rem;
+.btn-margin {
+    margin-top: 0.5rem;
 }
 
 .review-textbox {

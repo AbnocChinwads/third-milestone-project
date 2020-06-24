@@ -27,16 +27,28 @@
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="navbar-nav mr-auto">
 							<li class="nav-item">
-								<a class="nav-link" href="{{ url_for('game_list')}}">Home <i class="fas fa-home"
-                                aria-hidden="true"></i></a>
+								<a class="nav-link" href="{{ url_for('game_list')}}">Home 
+                                <i class="fas fa-home" aria-hidden="true"></i></a>
 							</li>
-							<li>
-								<a class="nav-link" href="{{ url_for('login')}}">Login <i class="fas fa-sign-in-alt"
-                                aria-hidden="true"></i></a>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+									data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Login <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
+								</a>
+								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<form action="" method="GET">
+                                        <input type="text" name="username" id="username" value="Username">
+                                        <input type="password" name="password" id="password" value="Password">
+										<div class="text-center btn-margin">
+                                        <input class="btn btn-sm btn-outline-primary" 
+                                        type="submit" value="Submit" method="post">
+                                        </div>
+						            </form>
+								</div>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="{{ url_for('contact')}}">Contact Us! <i
-                                class="fas fa-tasks" aria-hidden="true"></i></a>
+								<a class="nav-link" href="{{ url_for('contact')}}">Contact Us! 
+                                <i class="fas fa-tasks" aria-hidden="true"></i></a>
 							</li>
 						</ul>
 					</div>
@@ -91,14 +103,6 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 	<!--Custom jQuery/JavaScript-->
 	<script src="{{ url_for('static', filename='darkMode.js')}}"></script>
-	<script>
-		$(document).ready(function () {
-                            $('#dtBasicExample').DataTable({
-                                "pagingType": "simple" // "simple" option for 'Previous' and 'Next' buttons only
-                            });
-                            $('.dataTables_length').addClass('bs-select');
-                        });
-	</script>
 </body>
 
 </html>

@@ -8,7 +8,7 @@
 
 {% block content %}
 <!--Table generates a list of relevant information from database values-->
-<table id="dtBasicExample" class="table table-bordered">
+<table class="table table-bordered">
 	<tr>
 		<th>
 			Name
@@ -23,10 +23,10 @@
 	{% for game in game_list %}
 	<tr>
 		<td>
-            <!--Links to a page that displays the game title as a h1 in the navbar-->
-			<a class ="clickable-name" href="{{ url_for('more_info', game_list_id=game._id)}}">
-                <i class="fas fa-link"></i> {{game.game_name}}
-            </a>
+			<!--Links to a page that displays the game title as a h1 in the navbar-->
+			<a class="clickable-name" href="{{ url_for('more_info', game_list_id=game._id)}}">
+				<i class="fas fa-link"></i> {{game.game_name}}
+			</a>
 		</td>
 		<td>
 			{{game.game_genre}}
@@ -37,5 +37,15 @@
 	</tr>
 	{% endfor %}
 </table>
-
+<nav aria-label="Table navigation">
+	<ul class="pagination justify-content-center">
+		<li class="page-item">
+			<a class="page-link" href="#" tabindex="-1">Previous</a>
+		</li>
+		<li class="page-item"><a class="page-link" href="#">1</a></li>
+		<li class="page-item"><a class="page-link" href="#">2</a></li>
+		<li class="page-item"><a class="page-link" href="#">3</a></li>
+		<li class="page-item"><a class="page-link" href="#">Next</a></li>
+	</ul>
+</nav>
 {% endblock %}
