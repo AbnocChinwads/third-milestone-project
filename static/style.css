@@ -1,134 +1,149 @@
 /*--------------------------------------------------------- Body*/
 
 body {
-    position: relative;
-    min-height: 100vh;
-    background-color: #f2f2f2;
-    color: #343a40;
-    padding-bottom: 4rem; /* Footer position */
+  position: relative;
+  min-height: 100vh;
+  background-color: #f2f2f2;
+  color: #343a40;
+  padding-bottom: 4rem; /* Footer position */
 }
 
 /*--------------------------------------------------------- Header*/
 
 .heading-style-uppercase {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 .heading-centred {
-    text-align: center;
+  text-align: center;
 }
 
 /*--------------------------------------------------------- Switch*/
 
 .custom-control-input:checked ~ .custom-control-label::before {
-    background-color: #fff;
+  background-color: #fff;
 }
 
 .custom-control-input ~ .custom-control-label::before {
-    background-color: #343a40; /* Background colour of unchecked slider */
+  background-color: #343a40; /* Background colour of unchecked slider */
 }
 
 .custom-control-input ~ .custom-control-label::after {
-    background-color: #fff; /* Colour of sliding dot when slider is unchecked */
+  background-color: #fff; /* Colour of sliding dot when slider is unchecked */
 }
 
 .custom-control-input:checked ~ .custom-control-label::after {
-    background-color: #343a40 !important;
+  background-color: #343a40 !important;
 }
 
 /*--------------------------------------------------------- Table*/
 
-th, td {
-    padding: 1rem;
+th,
+td {
+  padding: 1rem;
 }
 
 .clickable-name {
-    color: #343a40;
+  color: #343a40;
 }
 
 .clickable-name:hover {
-    text-decoration: none; /* Remove underline on hover over anchor */
+  text-decoration: none; /* Remove underline on hover over anchor */
+}
+
+.round {
+    border-radius: 50% !important;
 }
 
 /*--------------------------------------------------------- Anchors - all*/
 
 a:hover {
-    color: #daa520; /* Bring hover colour inline with colour scheme */
+  color: #daa520; /* Bring hover colour inline with colour scheme */
 }
 
 /*--------------------------------------------------------- Buttons*/
 
 .btn-margin {
-    margin-top: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .review-textbox {
-    margin: 1rem 0rem;
-    height: 10rem;
-    width: 20rem;
+  margin: 1rem 0rem;
+  height: 10rem;
+  width: 20rem;
 }
 
 /*--------------------------------------------------------- Footer*/
 
 footer {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: #f8f9fa;
-    text-align: center;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #f8f9fa;
+  text-align: center;
 }
 
 .anchor-styling {
-    padding: 0.5em; /* Space between social media links */
-    color: #343a40;
+  padding: 0.5em; /* Space between social media links */
+  color: #343a40;
 }
 
 /*--------------------------------------------------------- Dark Mode*/
 
 .body-dark {
-    background-color: #343a40;
-    color: #daa520;
+  background-color: #343a40;
+  color: #daa520;
+}
+
+.table-colour {
+  color: #daa520;
 }
 
 .footer-dark {
-    background-color: #343a40;
-    color: #daa520;
-    text-align: center;
+  background-color: #343a40;
+  color: #daa520;
+  text-align: center;
 }
 
 .anchor-styling-dark {
-    padding: 0.5em;
-    color: #daa520;
+  padding: 0.5em;
+  color: #daa520;
 }
 
 .anchor-styling-dark:hover {
-    color: #8979d4; /* Bring hover colour inline with colour scheme */
+  color: #8979d4; /* Bring hover colour inline with colour scheme */
 }
-
 
 /*--------------------------------------------------------- Media Queries*/
 
 @media (prefers-color-scheme: dark) {
-    /* 
+  /* 
         If user has preferred colour scheme set to dark,
         these values will be used instead of the regular
         lighter values 
     */
-    .body-dark {
-        background-color: #343a40;
-        color: #daa520;
-    }
+  .body-dark {
+    background-color: #343a40;
+    color: #daa520;
+  }
 
-    .footer-dark {
+  .table-colour {
+    color: #daa520;
+  }
 
-        background-color: #343a40;
-        color: #daa520;
-        text-align: center;
-    }
+  .footer-dark {
+    background-color: #343a40;
+    color: #daa520;
+    text-align: center;
+  }
 
-    .anchor-styling-dark {
-        padding: 0.5em;
-        color: #daa520;
-    }
+  .anchor-styling-dark {
+    padding: 0.5em;
+    color: #daa520;
+  }
+
+  .anchor-styling-dark:hover {
+    color: #8979d4; /* Bring hover colour inline with colour scheme */
+  }
 }

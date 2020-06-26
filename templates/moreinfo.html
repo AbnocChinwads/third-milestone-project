@@ -10,22 +10,23 @@
 
 <h2 class="heading-centred heading-style-uppercase">{{cat.game_name}}</h2>
 
-<div>
 <img src="{{cat.game_image}}" alt="image of game cover art">
-</div>
-
-{% endif %}
-
-{% endfor %}
-
 <div class="collapse" id="showReviewSubmit">
 	<input class="review-textbox" type="text" name="review" id="addReview">
-    <button class="btn btn-primary btn-sm">Submit Review</button>
+	<button class="btn btn-primary btn-sm">Submit Review</button>
 </div>
 
 <button class="btn btn-primary btn-margin" type="button" data-toggle="collapse"
 data-target="#showReviewSubmit" aria-expanded="false" aria-controls="addReview">
     Add Review
 </button>
+<div>
+	<a href="{{cat.fair_use}}" target="_blank">
+		By Source, Fair Use
+	</a>
+</div>
+{% endif %}
+
+{% endfor %}
 
 {% endblock %}
