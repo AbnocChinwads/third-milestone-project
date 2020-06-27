@@ -21,7 +21,22 @@ def game_list():
     return render_template("index.html",
                            game_list=mongo.db.game_list.find())
 
-# Read Function
+# Create
+
+
+@app.route("/add-game")  # Display form page to add game
+def add_game():
+    return render_template("addgame.html")
+
+
+# Add a new dataset using the database keys
+@app.route("/insert-game", methods=["POST"])
+def insert_game():
+    games = mongo.db.game_list
+    games.insert_one(request.form.to_dict())
+    return redirect(url_for("game_list"))
+
+# Read
 
 
 @app.route("/more-info/<game_list_id>")
@@ -31,26 +46,32 @@ def more_info(game_list_id):
     return render_template("moreinfo.html",
                            game=the_game, categories=all_categories)
 
+# Update
+
+
+# Edit a game on the database
+@app.route("/edit-game-information/<game_list_id>")
+def update_game(game_list_id):
+    the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
+    return render_template("editgame.html", game=the_game)
+
+
+@app.route("/update-game/<game_list_id>", methods=["POST"])
+def update_task(game_list_id):
+    games = mongo.db.game_list
+    games.update({"_id": ObjectId(game_list_id)},
+                 {
+                    "game_name": request.form.get("game_name"),
+                    "game_genre": request.form.get("game_genre"),
+                    "game_pegi_rating": request.form.get("game_pegi_rating"),
+                    "game_image": request.form.get("game_image"),
+                    "fair_use": request.form.get("fair_use")
+                 })
+    return redirect(url_for("game_list"))
+
 
 """
 Add in the CRUD architecture:
-
-* Create
-
-
-@app.route("add_game") # Add a dataset using the database keys
-def add_game():
-    ** Create form style page for data addition **
-    mongo.db.game_list.create_one({
-        "game_name": value,
-        "game_genre": value,
-        "game_pegi_rating": value,
-        "game_image": value,
-    })
-    return redirect("index",
-                    add modal/alert with message
-                    'the game has been added')
-
 
 @app.route("add_review") # Add a review
 def add_review():
@@ -66,7 +87,7 @@ def add_review():
 @app.route("edit_review") # Edit a review
 def edit_review():
     mongo.db.game_list.review.update_one()
-    return redirect("index",
+    return redirect(url_for("more_info"),
                     add modal/alert with message
                     'your review has been updated')
 

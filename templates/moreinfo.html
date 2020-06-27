@@ -29,4 +29,7 @@ data-target="#showReviewSubmit" aria-expanded="false" aria-controls="addReview">
 
 {% endfor %}
 
+<a href="{{ url_for('update_game', game_list_id=game._id) }}" 
+                    class="btn btn-primary btn-sm">Edit Info</a>
+
 {% endblock %}

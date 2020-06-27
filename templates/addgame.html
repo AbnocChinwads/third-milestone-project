@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+
+{% block header %}
+<h1 class="heading-style-uppercase">Add A New Game for Review</h1>
+{% endblock %}
+
+{% block content %}
+
+<form action="{{ url_for('insert_game') }}" method="POST" class="col-12">
+	<div class="row">
+		<div class="col-12">
+			<label>Game Information</label>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<i class="fas fa-signature"></i>
+			<input id="game_name" name="game_name" type="text">
+			<label for="game_name">Game Title</label>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<i class="fas fa-gamepad"></i>
+			<input id="game_genre" name="game_genre" type="text">
+			<label for="game_genre">Genre</label>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<i class="fas fa-user-alt-slash"></i>
+			<input id="game_pegi_rating" name="game_pegi_rating" type="text">
+			<label for="game_pegi_rating">PEGI Rating</label>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<i class="fas fa-image"></i>
+			<input id="game_image" name="game_image" type="text">
+			<label for="game_image">Image URL</label>
+		</div>
+	</div>
+    <div class="row">
+		<div class="col-12">
+			<i class="fas fa-copyright"></i>
+			<input id="fair_use" name="fair_use" type="text">
+			<label for="fair_use">Image Copyright URL</label>
+		</div>
+	</div>
+	<div class="row">
+		<button class="btn btn-primary" type="submit" name="action">Add Game
+			    <i class="fas fa-plus-square"></i>
+			  </button>
+	</div>
+</form>
+
+{% endblock %}
