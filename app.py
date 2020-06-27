@@ -29,7 +29,7 @@ def add_game():
     return render_template("addgame.html")
 
 
-# Add a new dataset using the database keys
+# Add a new game
 @app.route("/insert-game", methods=["POST"])
 def insert_game():
     games = mongo.db.game_list
@@ -46,14 +46,15 @@ def more_info(game_list_id):
                            game=the_game, categories=all_categories)
 
 
-# Edit a game on the database
+# Display form page to edit game
 @app.route("/edit-game-information/<game_list_id>")
 def edit_game(game_list_id):
     the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
     return render_template("editgame.html", game=the_game)
 
 
-@app.route("/update-game/<game_list_id>", methods=["GET", "POST"])
+# Edit the chosen game
+@app.route("/update-game/<game_list_id>", methods=["POST"])
 def update_game(game_list_id):
     games = mongo.db.game_list
     games.update({"_id": ObjectId(game_list_id)},
@@ -65,6 +66,12 @@ def update_game(game_list_id):
         "fair_use": request.form.get("fair_use")
     })
     return redirect(url_for("game_list"))
+
+
+"""@app.route("/delete-game/<game_list_id>")  # Delete a chosen game
+def delete_game(game_list_id):
+    mongo.db.game_list.remove_one({"_id": ObjectId(game_list_id)})
+    return redirect(url_for("game_list"))"""
 
 # Reviews
 
@@ -103,27 +110,18 @@ Add in the CRUD architecture:
         Reviews - Added
 * Update: Games - Added (Returns 405 error)
           Reviews - Added (Returns 405 error)
-* Delete: Games - Needs implementing
+* Delete: Games - Added (Needs connecting to webpage)
           Reviews - Needs implementing
-
-
-@app.route("/delete_game/<game_list_id>")  # Delete a full dataset
-def delete_game(game_list_id):
-    mongo.db.game_list.remove_one({"_id": ObjectId(game_list_id)})
-    return redirect(url_for("more_info"),
-                    add modal/alert with message
-                    'your review has been deleted')
 
 
 @app.route("/delete_review")  # Delete a review
 def delete_review():
-    mongo.db.game_list.review.remove_one()
-    return redirect(url_for("more_info"),
-                    add modal/alert with message
-                    'your review has been deleted')
+    mongo.db.review.remove_one()
+    return redirect(url_for("more_info"))
 
-use less aggressive function to delete a subset of data from a
-document by using the key to find the value you wish to remove
+TODO:
+    Create a function to delete a single key: value pair from a
+    dataset by selecting the value you wish to remove
 """
 
 """
@@ -131,17 +129,12 @@ TODO:
     * Create login system, and use database to store usernames and passwords
     * Allow only the deletion of information the logged in user has posted
 """
+# Login system
 
 
 @app.route("/login")
 def login():
     return render_template("login.html")
-
-
-"""
-Not 100% sure this is needed, but business convention requires
-a means of contact as well as means of connection on social media
-"""
 
 
 @app.route("/contactus")  # Contact information page poss using an email API
