@@ -67,10 +67,15 @@ a:hover {
   margin-top: 0.5rem;
 }
 
-.review-textbox {
-  margin: 1rem 0rem;
-  height: 10rem;
-  width: 20rem;
+.btn-hide[aria-expanded="true"] {
+    display: none;
+}
+
+/*--------------------------------------------------------- Textarea*/
+
+textarea {
+    width: 3rem;
+    margin: 1rem 0rem;
 }
 
 /*--------------------------------------------------------- Footer*/

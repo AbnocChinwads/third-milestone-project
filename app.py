@@ -14,14 +14,14 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 mongo = PyMongo(app)
 
+# Games
+
 
 @app.route("/")  # Display main page with paginated list
 @app.route("/game-list")
 def game_list():
     return render_template("index.html",
                            game_list=mongo.db.game_list.find())
-
-# Create
 
 
 @app.route("/add-game")  # Display form page to add game
@@ -36,9 +36,8 @@ def insert_game():
     games.insert_one(request.form.to_dict())
     return redirect(url_for("game_list"))
 
-# Read
 
-
+# Display more information on the selected game
 @app.route("/more-info/<game_list_id>")
 def more_info(game_list_id):
     the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
@@ -46,52 +45,66 @@ def more_info(game_list_id):
     return render_template("moreinfo.html",
                            game=the_game, categories=all_categories)
 
-# Update
-
 
 # Edit a game on the database
 @app.route("/edit-game-information/<game_list_id>")
-def update_game(game_list_id):
+def edit_game(game_list_id):
     the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
     return render_template("editgame.html", game=the_game)
 
 
-@app.route("/update-game/<game_list_id>", methods=["POST"])
-def update_task(game_list_id):
+@app.route("/update-game/<game_list_id>", methods=["GET", "POST"])
+def update_game(game_list_id):
     games = mongo.db.game_list
     games.update({"_id": ObjectId(game_list_id)},
                  {
-                    "game_name": request.form.get("game_name"),
-                    "game_genre": request.form.get("game_genre"),
-                    "game_pegi_rating": request.form.get("game_pegi_rating"),
-                    "game_image": request.form.get("game_image"),
-                    "fair_use": request.form.get("fair_use")
-                 })
+        "game_name": request.form.get("game_name"),
+        "game_genre": request.form.get("game_genre"),
+        "game_pegi_rating": request.form.get("game_pegi_rating"),
+        "game_image": request.form.get("game_image"),
+        "fair_use": request.form.get("fair_use")
+    })
     return redirect(url_for("game_list"))
+
+# Reviews
+
+
+# Add a review
+@app.route("/add-review", methods=["GET", "POST"])
+def add_review(game_list_id, review_id):
+    the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
+    reviews = mongo.db.reviews
+    reviews.insert_one(request.form.to_dict())
+    return redirect(url_for("more_info"), game=the_game)
+
+
+@app.route("/edit-review/<review_id>")  # Update the current review
+def edit_review(review_id):
+    the_review = mongo.db.review.find_one({"_id": ObjectId(review_id)})
+    return render_template("editreview.html", review=the_review)
+
+
+@app.route("/update-review/<review_id>", methods=["GET", "POST"])
+def update_review(review_id):
+    reviews = mongo.db.reviews
+    reviews.update({"_id": ObjectId(review_id)},
+                   {
+        "review": request.form.get("review")
+    })
+    return redirect(url_for("more_info"))
 
 
 """
 Add in the CRUD architecture:
 
-@app.route("add_review") # Add a review
-def add_review():
-    mongo.db.game_list.review.create_one()
-    return redirect("index",
-                    add modal/alert with message
-                    'your review has been added')
-
-* Read - Added
-* Update
-
-
-@app.route("edit_review") # Edit a review
-def edit_review():
-    mongo.db.game_list.review.update_one()
-    return redirect(url_for("more_info"),
-                    add modal/alert with message
-                    'your review has been updated')
-
-* Delete
+* Create: Games - Added
+          Reviews - Added (Returns 405 error)
+* Read: Games - Added
+        Reviews - Added
+* Update: Games - Added (Returns 405 error)
+          Reviews - Added (Returns 405 error)
+* Delete: Games - Needs implementing
+          Reviews - Needs implementing
 
 
 @app.route("/delete_game/<game_list_id>")  # Delete a full dataset
@@ -110,8 +123,7 @@ def delete_review():
                     'your review has been deleted')
 
 use less aggressive function to delete a subset of data from a
-document by using the key to find the value you wish to remove...
-use similar method to update document.
+document by using the key to find the value you wish to remove
 """
 
 """

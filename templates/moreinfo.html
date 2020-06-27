@@ -11,16 +11,24 @@
 <h2 class="heading-centred heading-style-uppercase">{{cat.game_name}}</h2>
 
 <img src="{{cat.game_image}}" alt="image of game cover art">
-<div class="collapse" id="showReviewSubmit">
-	<input class="review-textbox" type="text" name="review" id="addReview">
-	<button class="btn btn-primary btn-sm">Submit Review</button>
-</div>
+    {% for review in reviews %}
+        {% if game._id == reviews.gameID %}
+            <p>{{review.review}}</p>
+        {% endif %}
+    {% endfor %}
 
-<button class="btn btn-primary btn-margin" type="button" data-toggle="collapse"
+<form class="collapse" id="showReviewSubmit">
+	<div>
+		<textarea class="form-control" id="review" name="review" rows="3"></textarea>
+		<a href="{{ url_for('add_review') }}" class="btn btn-primary btn-sm btn-margin">Submit Review</a>
+	</div>
+</form>
+
+<button class="btn btn-primary btn-margin btn-hide" type="button" data-toggle="collapse"
 data-target="#showReviewSubmit" aria-expanded="false" aria-controls="addReview">
     Add Review
 </button>
-<div>
+<div class="btn-margin">
 	<a href="{{cat.fair_use}}" target="_blank">
 		By Source, Fair Use
 	</a>
@@ -29,7 +37,6 @@ data-target="#showReviewSubmit" aria-expanded="false" aria-controls="addReview">
 
 {% endfor %}
 
-<a href="{{ url_for('update_game', game_list_id=game._id) }}" 
-                    class="btn btn-primary btn-sm">Edit Info</a>
+<a href="{{ url_for('update_game', game_list_id=game._id) }}" class="btn btn-primary btn-sm">Edit Info</a>
 
 {% endblock %}
