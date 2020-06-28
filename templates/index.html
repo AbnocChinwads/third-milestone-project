@@ -2,11 +2,10 @@
 
 {% extends 'base.html' %}
 
-{% block header %}
-<h1 class="heading-style-uppercase">Video Game Reviews</h1>
-{% endblock %}
-
 {% block content %}
+
+<h2 class="heading-centred heading-style-uppercase">Video games for review</h2>
+
 <!--Table generates a list of relevant information from database values-->
 <table class="table table-bordered">
 	<tr>
@@ -45,11 +44,17 @@
 </table>
 <nav aria-label="Table navigation">
 	<ul class="pagination justify-content-center">
-		<li class="page-item"><a class="page-link round" href="#" tabindex="-1">&laquo;</a></li>
-		<li class="page-item"><a class="page-link round" href="#">1</a></li>
-		<li class="page-item"><a class="page-link round" href="#">2</a></li>
-		<li class="page-item"><a class="page-link round" href="#">3</a></li>
-		<li class="page-item"><a class="page-link round" href="#">&raquo;</a></li>
+		<li class="page-item"><a class="page-link round" href="${first}" tabindex="-2">&laquo;</a></li>
+        <li class="page-item"><a class="page-link round" href="${previous}" tabindex="-1">&lsaquo;</a></li>
+		<li class="page-item"><a class="page-link round" href="${numPage}">1</a></li>
+        <li class="page-item"><a class="page-link round" href="${numPage}">2</a></li>
+        <li class="page-item"><a class="page-link round" href="${numPage}">3</a></li>
+        <li class="page-item"><a class="page-link round" href="${next}" tabindex="+1">&rsaquo;</a></li>
+		<li class="page-item"><a class="page-link round" href="${last}" tabindex="+2">&raquo;</a></li>
 	</ul>
 </nav>
+
+<script>
+
+</script>
 {% endblock %}

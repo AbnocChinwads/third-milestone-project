@@ -2,11 +2,9 @@
 
 {% extends 'base.html' %}
 
-{% block header %}
-<h1 class="heading-style-uppercase">Add A New Game for Review</h1>
-{% endblock %}
-
 {% block content %}
+
+<h2 class="heading-centred heading-style-uppercase">Edit game information</h2>
 
 <form action="{{ url_for('update_game', game_list_id = game._id) }}" method="POST" class="col-12">
 	<div class="row">
