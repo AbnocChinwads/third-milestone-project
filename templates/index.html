@@ -24,7 +24,7 @@
 	<tr>
 		<td>
 			<!--Links to a page that displays the game title as a h1 in the navbar-->
-			<a class="clickable-name" href="{{ url_for('more_info', game_list_id=game._id)}}">
+			<a class="clickable-name" href="{{ url_for('more_info', game_list_id=game._id)}}"> <!--gameID=reviews.gameID-->
 				<i class="fas fa-link"></i> {{game.game_name}}
 			</a>
 		</td>
@@ -33,6 +33,12 @@
 		</td>
 		<td>
 			{{game.game_pegi_rating}}
+		</td>
+        <td>
+			<button class="btn btn-warning"
+            href="{{ url_for('delete_game', game_list_id=game._id) }}">
+                Delete Entry
+            </button>
 		</td>
 	</tr>
 	{% endfor %}

@@ -21,7 +21,7 @@ mongo = PyMongo(app)
 @app.route("/game-list")
 def game_list():
     return render_template("index.html",
-                           game_list=mongo.db.game_list.find())
+                           game_list=mongo.db.game_list.find().limit(5))
 
 
 @app.route("/add-game")  # Display form page to add game
@@ -39,11 +39,12 @@ def insert_game():
 
 # Display more information on the selected game
 @app.route("/more-info/<game_list_id>")
-def more_info(game_list_id):
+def more_info(game_list_id):  # gameID
     the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
     all_categories = mongo.db.game_list.find()
-    return render_template("moreinfo.html",
-                           game=the_game, categories=all_categories)
+    # reviews = mongo.db.reviews.find({"_id": ObjectId(gameID)})
+    return render_template("moreinfo.html", game=the_game,
+                           categories=all_categories)  # review=reviews
 
 
 # Display form page to edit game
@@ -68,21 +69,21 @@ def update_game(game_list_id):
     return redirect(url_for("game_list"))
 
 
-"""@app.route("/delete-game/<game_list_id>")  # Delete a chosen game
-def delete_game(game_list_id):
+@app.route("/delete-game/<game_list_id>")  # Delete a chosen game
+def delete_game(game_list_id, reviews_gameID):
     mongo.db.game_list.remove_one({"_id": ObjectId(game_list_id)})
-    return redirect(url_for("game_list"))"""
+    mongo.db.reviews.remove_one({"_id": ObjectId(reviews_gameID)})
+    return redirect(url_for("game_list"))
 
 # Reviews
 
 
 # Add a review
 @app.route("/add-review", methods=["GET", "POST"])
-def add_review(game_list_id, review_id):
-    the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
-    reviews = mongo.db.reviews
+def add_review(gameID):
+    reviews = mongo.db.reviews.find_one({"_id": ObjectId(gameID)})
     reviews.insert_one(request.form.to_dict())
-    return redirect(url_for("more_info"), game=the_game)
+    return redirect(url_for("more_info"), review=reviews)
 
 
 @app.route("/edit-review/<review_id>")  # Update the current review
@@ -108,7 +109,7 @@ Add in the CRUD architecture:
           Reviews - Added (Returns 405 error)
 * Read: Games - Added
         Reviews - Added
-* Update: Games - Added (Returns 405 error)
+* Update: Games - Added
           Reviews - Added (Returns 405 error)
 * Delete: Games - Added (Needs connecting to webpage)
           Reviews - Needs implementing
