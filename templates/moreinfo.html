@@ -11,25 +11,13 @@
 <h2 class="heading-centred heading-style-uppercase">{{cat.game_name}}</h2>
 
 <img src="{{cat.game_image}}" alt="image of game cover art">
-    <!--{% for review in reviews %}
-            {% if game._id == reviews.gameID %}
-                <p>{{review.review}}</p>
+    {% for review in reviews %}
+            {% if cat.game_name == review.game_name %}
+                <p>{{review.reviews}}</p>
             {% endif %}
-        {% endfor %}-->
+        {% endfor %}
+<a href="{{ url_for('add_review', game_list_id=game._id) }}" class="btn btn-primary btn-sm">Add Review</a>
 
-<form action="{{ url_for('add_review') }}" method="POST" class="collapse" id="showReviewSubmit">
-	<div>
-		<textarea class="form-control" id="review" name="review" rows="3"></textarea>
-		<button class="btn btn-primary" type="submit" name="action">
-            Submit Review
-		</button>
-	</div>
-</form>
-
-<button class="btn btn-primary btn-margin btn-hide" type="button" data-toggle="collapse"
-data-target="#showReviewSubmit" aria-expanded="false" aria-controls="addReview">
-    Add Review <i class="fas fa-plus-square"></i>
-</button>
 <div class="btn-margin">
 	<a href="{{cat.fair_use}}" target="_blank">
 		By Source, Fair Use

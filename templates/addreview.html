@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="heading-centred heading-style-uppercase">Add a new review</h2>
+
+<form action="{{ url_for('insert_review', game_list_id = reviews.gameID) }}" method="POST" class="col-12">
+	<div class="row">
+		<div class="col-12">
+			<label>Review Information</label>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<i class="fas fa-signature"></i>
+			{% for cat in categories %}
+
+			{% if cat.game_name == game.game_name %}
+			<input id="game_name" name="game_name" type="text" value="{{game.game_name}}">
+            {% endif %}
+
+            {% endfor %}
+			<label for="game_name">Game Title</label>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<i class="fas fa-gamepad"></i>
+			<textarea name="review" rows="5" cols="400">Input review text here</textarea>
+			<label for="review">Leave a Review</label>
+		</div>
+	</div>
+	<div class="row">
+		<button class="btn btn-primary" type="submit">
+            Add Review <i class="fas fa-plus-square"></i>
+		</button>
+	</div>
+</form>
+
+{% endblock %}
