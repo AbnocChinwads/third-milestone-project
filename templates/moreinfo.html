@@ -10,8 +10,15 @@
 
 <h2 class="heading-centred heading-style-uppercase">{{cat.game_name}}</h2>
 
-<img src="{{cat.game_image}}" alt="image of game cover art">
-        <p>{{cat.review}}</p>
+<div class="row no-gutters">
+	<div class="col">
+		<img src="{{cat.game_image}}" alt="image of game cover art">
+    {% for reviews in review %}
+		<p>{{reviews.review}}</p>
+		{% endfor %}
+	</div>
+</div>
+
 <a href="{{ url_for('add_review', game_list_id=game._id) }}" class="btn btn-primary btn-sm">Add Review</a>
 
 <div class="btn-margin">
