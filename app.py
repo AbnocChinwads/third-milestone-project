@@ -39,12 +39,21 @@ def insert_game():
 
 # Display more information on the selected game
 @app.route("/more-info/<game_list_id>")
-def more_info(game_list_id):  # gameID
+def more_info(game_list_id):
     the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
     all_categories = mongo.db.game_list.find()
-    # reviews = mongo.db.reviews.find({"_id": ObjectId(gameID)})
+    reviews = mongo.db.reviews.aggregate([
+        {"$lookup":
+         {
+             "from": "game_list",
+             "localField": "game_name",
+             "foreignField": "game_name",
+             "as": "game_name"
+         }
+         }
+    ])
     return render_template("moreinfo.html", game=the_game,
-                           categories=all_categories)  # review=reviews
+                           categories=all_categories, review=reviews)
 
 
 # Display form page to edit game
