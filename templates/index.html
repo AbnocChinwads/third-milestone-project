@@ -22,8 +22,8 @@
 	{% for game in game_list %}
 	<tr>
 		<td>
-			<!--Links to a page that displays the game title as a h1 in the navbar-->
-			<a class="clickable-name" href="{{ url_for('more_info', game_list_id=game._id)}}"> <!--gameID=reviews.gameID-->
+			<!--Links to a page that displays the game title as a h1-->
+			<a class="clickable-name" href="{{ url_for('more_info', game_list_id=game._id)}}">
 				<i class="fas fa-link"></i> {{game.game_name}}
 			</a>
 		</td>

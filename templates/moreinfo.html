@@ -17,6 +17,9 @@
 		<p>{{reviews.review}}</p>
 		{% endfor %}
 	</div>
+    <button class="btn btn-warning" href="{{ url_for('delete_review', review_id=review._id) }}">
+        Delete Review
+    </button>
 </div>
 
 <a href="{{ url_for('add_review', game_list_id=game._id) }}" class="btn btn-primary btn-sm">Add Review</a>

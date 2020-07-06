@@ -42,17 +42,16 @@ def insert_game():
 def more_info(game_list_id):
     the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
     all_categories = mongo.db.game_list.find()
-    if "game_name" == "game_name":
-        reviews = mongo.db.reviews.aggregate([
-                {"$lookup":
-                    {
-                        "from": "game_list",
-                        "localField": "game_name",
-                        "foreignField": "game_name",
-                        "as": "game_name"
-                    }
-                 }
-            ])
+    reviews = mongo.db.reviews.aggregate([
+            {"$lookup":
+                {
+                    "from": "game_list",
+                    "localField": "game_name",
+                    "foreignField": "game_name",
+                    "as": "game_id"
+                }
+             }
+        ])
     result = list(reviews)
     return render_template("moreinfo.html", game=the_game,
                            categories=all_categories, review=result)
@@ -81,15 +80,15 @@ def update_game(game_list_id):
 
 
 @app.route("/delete-game/<game_list_id>")  # Delete a chosen game
-def delete_game(game_list_id, reviews_gameID):
+def delete_game(game_list_id):
     mongo.db.game_list.remove_one({"_id": ObjectId(game_list_id)})
-    mongo.db.reviews.remove({"_id": ObjectId(reviews_gameID)})
+    # mongo.db.reviews.remove({"game_name": "reviews.game_name"})
     return redirect(url_for("game_list"))
 
 # Reviews
 
 
-# Add a review
+# Display form to add review
 @app.route("/add-review/<game_list_id>")
 def add_review(game_list_id):
     the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
@@ -99,7 +98,7 @@ def add_review(game_list_id):
                            game=the_game, categories=all_categories)
 
 
-# Add a new game
+# Add the review
 @app.route("/insert-review", methods=["POST"])
 def insert_review():
     reviews = mongo.db.reviews
@@ -107,10 +106,12 @@ def insert_review():
     return redirect(url_for("game_list"))
 
 
-@app.route("/edit-review/<review_id>")  # Update the current review
+@app.route("/edit-review/<review_id>")  # Edit the current review
 def edit_review(review_id):
     the_review = mongo.db.review.find_one({"_id": ObjectId(review_id)})
     return render_template("editreview.html", review=the_review)
+
+# Update the review
 
 
 @app.route("/update-review/<review_id>", methods=["GET", "POST"])
@@ -123,40 +124,40 @@ def update_review(review_id):
     return redirect(url_for("more_info"))
 
 
+@app.route("/delete-review/<review_id>")  # Delete a chosen review
+def delete_review(review_id):
+    mongo.db.game_list.remove_one({"_id": ObjectId(review_id)})
+    return redirect(url_for("more_info"))
+
+
 """
 Add in the CRUD architecture:
 
 * Create: Games - Added
-          Reviews - Added (Returns 405 error)
+          Reviews - Added (Does not work properly)
 * Read: Games - Added
-        Reviews - Added
+        Reviews - Added (Displays all reviews)
 * Update: Games - Added
-          Reviews - Added (Returns 405 error)
-* Delete: Games - Added (Needs connecting to webpage)
-          Reviews - Needs implementing
-
-
-@app.route("/delete_review")  # Delete a review
-def delete_review():
-    mongo.db.review.remove_one()
-    return redirect(url_for("more_info"))
+          Reviews - Added (Does not work properly)
+* Delete: Games - Added (Needs testing)
+          Reviews - Added (Needs testing)
 
 TODO:
-    Create a function to delete a single key: value pair from a
-    dataset by selecting the value you wish to remove
+    * Create a function to delete a single key:value pair from a
+    * dataset by selecting the value you wish to remove
 """
 
 """
 TODO:
     * Create login system, and use database to store usernames and passwords
-    * Allow only the deletion of information the logged in user has posted
+    * Allow only the deletion of reviews the logged in user has posted
 """
 # Login system
 
 
-@app.route("/login")
+@app.route("/<username>")
 def login():
-    return render_template("login.html")
+    return render_template("index.html")
 
 
 @app.route("/contactus")  # Contact information page poss using an email API
