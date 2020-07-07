@@ -38,23 +38,22 @@ def insert_game():
 
 
 # Display more information on the selected game
+# and displays relevant reviews
 @app.route("/more-info/<game_list_id>")
 def more_info(game_list_id):
     the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
     all_categories = mongo.db.game_list.find()
-    if mongo.db.reviews.game_name:
-        {"$match": {"game_name": property}}
-        reviews = mongo.db.reviews.aggregate([
-                {"$lookup":
-                    {
-                        "from": "game_list",
-                        "localField": "game_name",
-                        "foreignField": "game_name",
-                        "as": "game_id"
-                    }
+    reviews = mongo.db.reviews.aggregate([
+            {"$lookup":
+                {
+                    "from": "game_list",
+                    "localField": "game_name",
+                    "foreignField": "game_name",
+                    "as": "game_id"
                 }
-            ])
-        result = list(reviews)
+             }
+        ])
+    result = list(reviews)
     return render_template("moreinfo.html", game=the_game,
                            categories=all_categories, review=result)
 
@@ -138,7 +137,7 @@ Add in the CRUD architecture:
 * Create: Games - Added
           Reviews - Added (Does not work properly)
 * Read: Games - Added
-        Reviews - Added (Displays all reviews)
+        Reviews - Added (Displays all reviews, rather than game specific ones)
 * Update: Games - Added
           Reviews - Added (Does not work properly)
 * Delete: Games - Added (Needs testing)
@@ -151,7 +150,8 @@ TODO:
 
 """
 TODO:
-    * Create login system, and use database to store usernames and passwords
+    * Create login system, and use database to store emails,
+    * usernames and passwords
     * Allow only the deletion of reviews the logged in user has posted
 """
 # Login system
