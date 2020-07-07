@@ -47,11 +47,12 @@ def more_info(game_list_id):
             {"$lookup":
                 {
                     "from": "game_list",
-                    "localField": "game_name",
-                    "foreignField": "game_name",
-                    "as": "game_id"
+                    "localField": "game_id",
+                    "foreignField": "_id",
+                    "as": "chosen_id"
                 }
-             }
+             },
+            {"$match": {"chosen_id": {"_id": ObjectId(game_list_id)}}}
         ])
     result = list(reviews)
     return render_template("moreinfo.html", game=the_game,
