@@ -6,7 +6,7 @@
 
 <h2 class="heading-centred heading-style-uppercase">Add a new review</h2>
 
-<form action="{{ url_for('insert_review', game_list_id = reviews.gameID) }}" method="POST" class="col-12">
+<form action="{{ url_for('insert_review') }}" method="POST" class="col-12">
 	<div class="row">
 		<div class="col-12">
 			<label>Review Information</label>
@@ -14,15 +14,7 @@
 	</div>
 	<div class="row">
 		<div class="col-12">
-			<i class="fas fa-signature"></i>
-			{% for cat in categories %}
-
-			{% if cat.game_name == game.game_name %}
-			<input id="game_name" name="game_name" type="text" value="{{game.game_name}}">
-            {% endif %}
-
-            {% endfor %}
-			<label for="game_name">Game Title</label>
+			<input type="hidden" id="game_id" name="game_id" value="{{game._id}}">
 		</div>
 	</div>
 	<div class="row">

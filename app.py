@@ -43,17 +43,7 @@ def insert_game():
 def more_info(game_list_id):
     the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
     all_categories = mongo.db.game_list.find()
-    reviews = mongo.db.reviews.aggregate([
-            {"$lookup":
-                {
-                    "from": "game_list",
-                    "localField": "game_id",
-                    "foreignField": "_id",
-                    "as": "chosen_id"
-                }
-             },
-            {"$match": {"chosen_id": {"_id": ObjectId(game_list_id)}}}
-        ])
+    reviews = mongo.db.reviews.find({"game_id": ObjectId(game_list_id)})
     result = list(reviews)
     return render_template("moreinfo.html", game=the_game,
                            categories=all_categories, review=result)
@@ -81,10 +71,11 @@ def update_game(game_list_id):
     return redirect(url_for("game_list"))
 
 
-@app.route("/delete-game/<game_list_id>")  # Delete a chosen game
+# Delete a chosen game and it's reviews
+@app.route("/delete-game/<game_list_id>")
 def delete_game(game_list_id):
     mongo.db.game_list.remove_one({"_id": ObjectId(game_list_id)})
-    # mongo.db.reviews.remove({"game_name": "reviews.game_name"})
+    mongo.db.reviews.remove({"game_id": ObjectId(game_list_id)})
     return redirect(url_for("game_list"))
 
 # Reviews
@@ -94,15 +85,14 @@ def delete_game(game_list_id):
 @app.route("/add-review/<game_list_id>")
 def add_review(game_list_id):
     the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
-    all_categories = mongo.db.game_list.find()
-    review = mongo.db.reviews.find()
-    return render_template("addreview.html", reviews=review,
-                           game=the_game, categories=all_categories)
+    return render_template("addreview.html", game=the_game)
 
 
 # Add the review
 @app.route("/insert-review", methods=["POST"])
 def insert_review():
+    # form_game_id = request.form.get("game_id")
+    # game_id = ObjectId(form_game_id)
     reviews = mongo.db.reviews
     reviews.insert_one(request.form.to_dict())
     return redirect(url_for("game_list"))
