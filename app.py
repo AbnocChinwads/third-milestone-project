@@ -21,7 +21,7 @@ mongo = PyMongo(app)
 @app.route("/game-list")
 def game_list():
     return render_template("index.html",
-                           game_list=mongo.db.game_list.find().limit(5))
+                           game_list=mongo.db.game_list.find())
 
 
 @app.route("/add-game")  # Display form page to add game
