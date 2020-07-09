@@ -8,6 +8,11 @@ body {
   padding-bottom: 4rem; /* Footer position */
 }
 
+p {
+  white-space: pre-wrap; /* Preserve text formatting when retrieving reviews from the database */
+  overflow-wrap: break-word;
+}
+
 /*--------------------------------------------------------- Header*/
 
 .heading-style-uppercase {
@@ -67,11 +72,11 @@ a:hover {
   margin-top: 0.5rem;
 }
 
-.btn-hide[aria-expanded="true"] {
-  display: none;
-}
-
 /*--------------------------------------------------------- Textarea*/
+
+textarea {
+  white-space: pre-wrap; /* Preserve text formatting when editing a review */
+}
 
 /*--------------------------------------------------------- Footer*/
 
@@ -127,10 +132,10 @@ footer {
 
 @media (prefers-color-scheme: dark) {
   /* 
-        If user has preferred colour scheme set to dark,
-        these values will be used instead of the regular
-        lighter values 
-    */
+    If user has preferred colour scheme set to dark,
+    these values will be used instead of the regular
+    lighter values 
+  */
   .body-dark {
     background-color: #343a40;
     color: #daa520;
