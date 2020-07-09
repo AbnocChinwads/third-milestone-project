@@ -41,7 +41,7 @@ def insert_game():
 # and displays relevant reviews
 @app.route("/more-info/<game_list_id>")
 def more_info(game_list_id):
-    the_game = mongo.db.game_list.find({"_id": ObjectId(game_list_id)})
+    the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
     all_categories = mongo.db.game_list.find()
     reviews = mongo.db.reviews.find({"game_id": ObjectId(game_list_id)})
     result = list(reviews)
@@ -52,7 +52,7 @@ def more_info(game_list_id):
 # Display form page to edit game
 @app.route("/edit-game-information/<game_list_id>")
 def edit_game(game_list_id):
-    the_game = mongo.db.game_list.find({"_id": ObjectId(game_list_id)})
+    the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
     return render_template("editgame.html", game=the_game)
 
 
@@ -84,7 +84,7 @@ def delete_game(game_list_id):
 # Display form to add review
 @app.route("/add-review/<game_list_id>")
 def add_review(game_list_id):
-    the_game = mongo.db.game_list.find({"_id": ObjectId(game_list_id)})
+    the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
     return render_template("addreview.html", game=the_game)
 
 
@@ -104,8 +104,11 @@ def insert_review():
 # Edit the current review
 @app.route("/edit-review/<game_list_id>/<review_id>")
 def edit_review(game_list_id, review_id):
-    the_game = mongo.db.game_list.find({"_id": ObjectId(game_list_id)})
-    the_review = mongo.db.reviews.find({"_id": ObjectId(review_id)})
+    try:
+        the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
+        the_review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
+    except Exception as e:
+        print(e)
     return render_template("editreview.html", game=the_game, review=the_review)
 
 
