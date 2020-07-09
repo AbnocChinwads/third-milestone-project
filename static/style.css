@@ -52,7 +52,7 @@ td {
 }
 
 .round {
-    border-radius: 50% !important;
+  border-radius: 50% !important;
 }
 
 /*--------------------------------------------------------- Anchors - all*/
@@ -68,7 +68,7 @@ a:hover {
 }
 
 .btn-hide[aria-expanded="true"] {
-    display: none;
+  display: none;
 }
 
 /*--------------------------------------------------------- Textarea*/
@@ -98,6 +98,14 @@ footer {
 
 .table-colour {
   color: #daa520;
+}
+
+.table-anchors {
+  color: #daa520;
+}
+
+.table-anchors:hover {
+  color: #8979d4; /* Bring hover colour inline with colour scheme */
 }
 
 .footer-dark {
@@ -130,6 +138,14 @@ footer {
 
   .table-colour {
     color: #daa520;
+  }
+
+  .table-anchors {
+    color: #daa520;
+  }
+
+  .table-anchors:hover {
+    color: #8979d4; /* Bring hover colour inline with colour scheme */
   }
 
   .footer-dark {
