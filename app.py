@@ -74,7 +74,7 @@ def update_game(game_list_id):
 # Delete a chosen game and it's reviews
 @app.route("/delete-game/<game_list_id>")
 def delete_game(game_list_id):
-    mongo.db.game_list.remove_one({"_id": ObjectId(game_list_id)})
+    mongo.db.game_list.remove({"_id": ObjectId(game_list_id)})
     mongo.db.reviews.remove({"game_id": ObjectId(game_list_id)})
     return redirect(url_for("game_list"))
 
@@ -91,35 +91,43 @@ def add_review(game_list_id):
 # Add the review
 @app.route("/insert-review", methods=["POST"])
 def insert_review():
-    # form_game_id = request.form.get("game_id")
-    # game_id = ObjectId(form_game_id)
+    form_game_id = request.form.get("game_id")
+    game_id = ObjectId(form_game_id)
     reviews = mongo.db.reviews
-    reviews.insert_one(request.form.to_dict())
+    reviews.insert_one({
+        "game_id": game_id,
+        "review": request.form.get("review")
+    })
     return redirect(url_for("game_list"))
 
 
-@app.route("/edit-review/<review_id>")  # Edit the current review
-def edit_review(review_id):
-    the_review = mongo.db.review.find_one({"_id": ObjectId(review_id)})
-    return render_template("editreview.html", review=the_review)
+# Edit the current review
+@app.route("/edit-review/<game_list_id>/<review_id>")
+def edit_review(game_list_id, review_id):
+    the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
+    the_review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
+    return render_template("editreview.html", review=the_review, game=the_game)
+
 
 # Update the review
-
-
 @app.route("/update-review/<review_id>", methods=["GET", "POST"])
 def update_review(review_id):
+    form_game_id = request.form.get("game_id")
+    game_id = ObjectId(form_game_id)
     reviews = mongo.db.reviews
     reviews.update({"_id": ObjectId(review_id)},
                    {
-        "review": request.form.get("review")
-    })
+                    "game_id": game_id,
+                    "review": request.form.get("review")
+                    })
     return redirect(url_for("more_info"))
 
 
-@app.route("/delete-review/<review_id>")  # Delete a chosen review
+# Delete a chosen review
+@app.route("/delete-review/<review_id>")
 def delete_review(review_id):
-    mongo.db.game_list.remove_one({"_id": ObjectId(review_id)})
-    return redirect(url_for("more_info"))
+    mongo.db.reviews.remove({"_id": ObjectId(review_id)})
+    return redirect(url_for("game_list"))
 
 
 """

@@ -14,30 +14,40 @@
 	<div class="col-3">
 		<img src="{{cat.game_image}}" alt="image of game cover art">
     </div>
-    <div class="col">
-        {% for reviews in review %}
-		
-        <p>{{reviews.review}}</p>
-		
-        {% endfor %}
+	<div class="col">
+		{% for reviews in review %}
 
-		<button class="btn btn-margin btn-warning" href="{{ url_for('delete_review', review_id=review._id) }}">
+		<p>{{reviews.review}}</p>
+
+		<a class="btn btn-margin btn-success" 
+        href="{{ url_for('edit_review', review_id = reviews._id, game_list_id = game._id) }}">
+            Edit Review
+        </a>
+
+		<a class="btn btn-margin btn-warning" href="{{ url_for('delete_review', review_id = reviews._id) }}">
             Delete Review
-        </button>
+        </a>
+
+		{% endfor %}
 	</div>
 </div>
 
-<a href="{{ url_for('add_review', game_list_id=game._id) }}" class="btn btn-margin btn-primary btn-sm">Add Review</a>
+<a href="{{ url_for('add_review', game_list_id = game._id) }}" class="btn btn-margin btn-primary btn-sm">
+    Add Review
+</a>
 
 <div class="btn-margin">
 	<a href="{{cat.fair_use}}" target="_blank">
 		By Source, Fair Use
 	</a>
 </div>
+
 {% endif %}
 
 {% endfor %}
 
-<a href="{{ url_for('edit_game', game_list_id=game._id) }}" class="btn btn-margin btn-primary btn-sm">Edit Info</a>
+<a href="{{ url_for('edit_game', game_list_id=game._id) }}" class="btn btn-margin btn-primary btn-sm">
+    Edit Info
+</a>
 
 {% endblock %}
