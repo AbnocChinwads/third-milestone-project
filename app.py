@@ -111,8 +111,10 @@ def edit_review(game_list_id, review_id):
 
 
 # Update the review
-@app.route("/update-review/<review_id>", methods=["GET", "POST"])
-def update_review(review_id):
+@app.route("/update-review/<game_list_id>/<review_id>",
+           methods=["GET", "POST"])
+def update_review(game_list_id, review_id):
+    mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
     form_game_id = request.form.get("game_id")
     game_id = ObjectId(form_game_id)
     reviews = mongo.db.reviews
