@@ -104,12 +104,10 @@ def insert_review():
 # Edit the current review
 @app.route("/edit-review/<game_list_id>/<review_id>")
 def edit_review(game_list_id, review_id):
-    try:
-        the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
-        the_review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
-    except Exception as e:
-        print(e)
-    return render_template("editreview.html", game=the_game, review=the_review)
+    the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
+    the_review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
+    return render_template("editreview.html", game=the_game,
+                           reviews=the_review)
 
 
 # Update the review
@@ -158,10 +156,11 @@ TODO:
 """
 # Login system
 
-
+"""
 @app.route("/<username>")
 def login():
     return render_template("index.html")
+"""
 
 
 @app.route("/contactus")  # Contact information page poss using an email API

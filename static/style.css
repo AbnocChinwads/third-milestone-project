@@ -78,6 +78,12 @@ textarea {
   white-space: pre-wrap; /* Preserve text formatting when editing a review */
 }
 
+/*--------------------------------------------------------- Images*/
+
+col-3 img {
+    width: 100%;
+}
+
 /*--------------------------------------------------------- Footer*/
 
 footer {

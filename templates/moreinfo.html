@@ -33,10 +33,10 @@
 <div class="col">
 	{% for reviews in review %}
 
-	<p class="col-4">{{reviews.review}}</p>
+	<p>{{reviews.review}}</p>
 
 	<a class="btn btn-margin btn-success" 
-    href="{{ url_for('edit_review', review_id = reviews._id, game_list_id = game._id) }}">
+    href="{{ url_for('edit_review', game_list_id = game._id, review_id = reviews._id) }}">
         Edit Review
     </a>
 
