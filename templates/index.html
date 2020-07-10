@@ -9,6 +9,7 @@
 <!--Table generates a list of relevant information from database values-->
 <table class="table table-bordered">
 	<tr>
+        <th></th>
 		<th>
 			Name
 		</th>
@@ -22,8 +23,11 @@
 	</tr>
 	{% for game in game_list %}
 	<tr>
+        <td>
+            {{ loop.index }}.
+        </td>
 		<td>
-			<!--Links to a page that displays the game title as a h1-->
+			<!--Links to a page that displays the game title as a h2-->
 			<a class="clickable-name" href="{{ url_for('more_info', game_list_id=game._id)}}">
 				<i class="fas fa-link"></i> {{game.game_name}}
 			</a>
@@ -34,15 +38,15 @@
 		<td>
 			{{game.game_pegi_rating}}
 		</td>
-        <td>
-			<button class="btn btn-warning"
+        <td><a class="btn btn-warning"
             href="{{ url_for('delete_game', game_list_id=game._id) }}">
                 Delete Entry
-            </button>
+            </a>
 		</td>
 	</tr>
 	{% endfor %}
 </table>
+<!--Pagination-->
 <nav aria-label="Table navigation">
 	<ul class="pagination justify-content-center">
 		<li class="page-item"><a class="page-link round" href="${first}" tabindex="-2">&laquo;</a></li>
