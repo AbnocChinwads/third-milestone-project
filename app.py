@@ -14,8 +14,6 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 mongo = PyMongo(app)
 
-the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
-
 # Games
 
 
@@ -43,6 +41,7 @@ def insert_game():
 # and displays relevant reviews
 @app.route("/more-info/<game_list_id>")
 def more_info(game_list_id):
+    the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
     all_categories = mongo.db.game_list.find()
     reviews = mongo.db.reviews.find({"game_id": ObjectId(game_list_id)})
     result = list(reviews)
