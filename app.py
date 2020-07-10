@@ -14,6 +14,8 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 mongo = PyMongo(app)
 
+the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
+
 # Games
 
 
@@ -41,7 +43,6 @@ def insert_game():
 # and displays relevant reviews
 @app.route("/more-info/<game_list_id>")
 def more_info(game_list_id):
-    the_game = mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
     all_categories = mongo.db.game_list.find()
     reviews = mongo.db.reviews.find({"game_id": ObjectId(game_list_id)})
     result = list(reviews)
@@ -74,8 +75,8 @@ def update_game(game_list_id):
 # Delete a chosen game and it's reviews
 @app.route("/delete-game/<game_list_id>")
 def delete_game(game_list_id):
-    mongo.db.game_list.remove({"_id": ObjectId(game_list_id)})
-    mongo.db.reviews.remove({"game_id": ObjectId(game_list_id)})
+    mongo.db.game_list.delete_one({"_id": ObjectId(game_list_id)})
+    mongo.db.reviews.delete_many({"game_id": ObjectId(game_list_id)})
     return redirect(url_for("game_list"))
 
 # Reviews
@@ -111,10 +112,8 @@ def edit_review(game_list_id, review_id):
 
 
 # Update the review
-@app.route("/update-review/<game_list_id>/<review_id>",
-           methods=["GET", "POST"])
-def update_review(game_list_id, review_id):
-    mongo.db.game_list.find_one({"_id": ObjectId(game_list_id)})
+@app.route("/update-review/<review_id>", methods=["POST"])
+def update_review(review_id):
     form_game_id = request.form.get("game_id")
     game_id = ObjectId(form_game_id)
     reviews = mongo.db.reviews
@@ -123,27 +122,27 @@ def update_review(game_list_id, review_id):
                     "game_id": game_id,
                     "review": request.form.get("review")
                     })
-    return redirect(url_for("more_info"))
+    return redirect(url_for("game_list"))
 
 
 # Delete a chosen review
 @app.route("/delete-review/<review_id>")
 def delete_review(review_id):
-    mongo.db.reviews.remove({"_id": ObjectId(review_id)})
+    mongo.db.reviews.delete_one({"_id": ObjectId(review_id)})
     return redirect(url_for("game_list"))
 
 
 """
 Add in the CRUD architecture:
 
-* Create: Games - Added
-          Reviews - Added (Does not work properly)
-* Read: Games - Added
-        Reviews - Added (Displays all reviews, rather than game specific ones)
-* Update: Games - Added
-          Reviews - Added (Does not work properly)
-* Delete: Games - Added (Needs testing)
-          Reviews - Added (Needs testing)
+* Create: Games - Added (Works)
+          Reviews - Added (Works, have to return to the main page)
+* Read: Games - Added (Works)
+        Reviews - Added (Now displays game specific reviews)
+* Update: Games - Added (Works)
+          Reviews - Added (Works, have to return to the main page)
+* Delete: Games - Added (Works)
+          Reviews - Added (Works, have to return to the main page)
 
 TODO:
     * Create a function to delete a single key:value pair from a
