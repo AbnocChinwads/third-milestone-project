@@ -118,9 +118,9 @@ def update_review(review_id):
     reviews = mongo.db.reviews
     reviews.update({"_id": ObjectId(review_id)},
                    {
-                    "game_id": game_id,
-                    "review": request.form.get("review")
-                    })
+        "game_id": game_id,
+        "review": request.form.get("review")
+    })
     return redirect(url_for("game_list"))
 
 

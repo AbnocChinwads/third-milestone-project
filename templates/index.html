@@ -5,11 +5,10 @@
 {% block content %}
 
 <h2 class="heading-centred heading-style-uppercase">Video games for review</h2>
-
 <!--Table generates a list of relevant information from database values-->
 <table class="table table-bordered">
 	<tr>
-        <th></th>
+		<th></th>
 		<th>
 			Name
 		</th>
@@ -19,13 +18,13 @@
 		<th>
 			PEGI Rating
 		</th>
-        <th></th>
+		<th></th>
 	</tr>
 	{% for game in game_list %}
 	<tr>
-        <td>
-            {{ loop.index }}.
-        </td>
+		<td>
+			{{ loop.index }}.
+		</td>
 		<td>
 			<!--Links to a page that displays the game title as a h2-->
 			<a class="clickable-name" href="{{ url_for('more_info', game_list_id=game._id)}}">
@@ -38,28 +37,26 @@
 		<td>
 			{{game.game_pegi_rating}}
 		</td>
-        <td><a class="btn btn-warning"
-            href="{{ url_for('delete_game', game_list_id=game._id) }}">
-                Delete Entry
-            </a>
+		<td><a class="btn btn-warning" href="{{ url_for('delete_game', game_list_id=game._id) }}">
+				Delete Entry
+			</a>
 		</td>
 	</tr>
 	{% endfor %}
 </table>
 <!--Pagination-->
-<nav aria-label="Table navigation">
-	<ul class="pagination justify-content-center">
-		<li class="page-item"><a class="page-link round" href="${first}" tabindex="-2">&laquo;</a></li>
-        <li class="page-item"><a class="page-link round" href="${previous}" tabindex="-1">&lsaquo;</a></li>
-		<li class="page-item"><a class="page-link round" href="${numPage}">1</a></li>
-        <li class="page-item"><a class="page-link round" href="${numPage}">2</a></li>
-        <li class="page-item"><a class="page-link round" href="${numPage}">3</a></li>
-        <li class="page-item"><a class="page-link round" href="${next}" tabindex="+1">&rsaquo;</a></li>
-		<li class="page-item"><a class="page-link round" href="${last}" tabindex="+2">&raquo;</a></li>
-	</ul>
-</nav>
-
 <script>
-
+    let pageNumber = 0;
+    let nPerPage = 2;
+    function printGames(pageNumber, nPerPage) {
+        print( "Page: " + pageNumber );
+        mongo.db.game_list.find()
+            cursor.skip( pageNumber > 0 ? ( (
+            pageNumber - 1 ) * nPerPage ) : 0 )
+            cursor.limit( nPerPage )
+            cursor.forEach( game => {
+            print( game );
+            });
+    }
 </script>
 {% endblock %}
