@@ -3,7 +3,7 @@
 body {
   position: relative;
   min-height: 100vh;
-  background-color: #f2f2f2;
+  background-color: #f8f9fa;
   color: #343a40;
   padding-bottom: 4rem; /* Footer position */
 }
@@ -43,9 +43,8 @@ p {
 
 /*--------------------------------------------------------- Table*/
 
-th,
 td {
-  padding: 1rem;
+  vertical-align: middle !important;
 }
 
 .clickable-name {
