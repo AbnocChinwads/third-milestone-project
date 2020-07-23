@@ -20,8 +20,20 @@ mongo = PyMongo(app)
 @app.route("/")  # Display main page with paginated list
 @app.route("/game-list")
 def game_list():
+    page_size = 2
+    last_id = None
+    if last_id is None:
+        cursor = mongo.db.game_list.find().limit(page_size)
+    else:
+        cursor = mongo.db.game_list.find(
+                {'_id': {'$gt': last_id}}).limit(page_size)
+    data = print([x for x in cursor])
+    if not data:
+        return 'None', 'None'
+    last_id = data[-1]['_id']
+    return data, last_id
     return render_template("index.html",
-                           game_list=mongo.db.game_list.find())
+                           game_list=cursor)
 
 
 @app.route("/add-game")  # Display form page to add game
