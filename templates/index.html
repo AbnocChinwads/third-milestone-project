@@ -44,19 +44,5 @@
 	</tr>
 	{% endfor %}
 </table>
-<!--Pagination-->
-<script>
-    let pageNumber = 0;
-    let nPerPage = 2;
-    function printGames(pageNumber, nPerPage) {
-        print( "Page: " + pageNumber );
-        mongo.db.game_list.find()
-            cursor.skip( pageNumber > 0 ? ( (
-            pageNumber - 1 ) * nPerPage ) : 0 )
-            cursor.limit( nPerPage )
-            cursor.forEach( game => {
-            print( game );
-            });
-    }
-</script>
+
 {% endblock %}
