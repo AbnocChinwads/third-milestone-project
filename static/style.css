@@ -1,6 +1,7 @@
 /*--------------------------------------------------------- Body*/
 
 body {
+  text-align: center;
   position: relative;
   min-height: 100vh;
   background-color: #f8f9fa;
@@ -14,6 +15,11 @@ p {
 }
 
 /*--------------------------------------------------------- Header*/
+
+h1 {
+  text-align: justify;
+  padding-left: 0.5rem;
+} /* Centres main header on page */
 
 .heading-style-uppercase {
   text-transform: uppercase;
