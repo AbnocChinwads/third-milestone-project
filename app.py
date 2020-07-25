@@ -16,34 +16,33 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 mongo = PyMongo(app)
 
 # Games
-
 """page_size = 5
-last_id = None
-if last_id is None:
-    cursor = mongo.db.game_list.find({"_id": ObjectId()}).limit(page_size)
-else:
-    cursor = mongo.db.game_list.find(
-            {"_id": {"$gt": last_id}}).limit(page_size)
-data = print([x for x in cursor])
-if not data:
-    return "None", "None"
-last_id = data[-1]['_id']
-return data, last_id"""
+    last_id = None
+    if last_id is None:
+        cursor = mongo.db.game_list.find({"name": {"$exists": True}
+                                          }).limit(page_size)
+    else:
+        cursor = mongo.db.game_list.find(
+            {"name": {"$gt": last_id}}).limit(page_size)
+    data = print([x for x in cursor])
+    if not data:
+        return "None", "None"
+    last_id = data[-1]["name"]
+    return data, last_id"""
+
 
 @app.route("/")  # Display main page with paginated list
 @app.route("/game-list")
 def game_list():
     def printGames(startValue, nPerPage):
-        endValue = ''
-        mongo.db.game_list.find(
-            {"_id": {"$lt": startValue}
-             }).sort("_id", 1).limit(nPerPage)
+        endValue = [None]
         for endValue in endValue:
-            endValue = "game._id"
+            endValue = "_id"
+        mongo.db.game_list.find().sort(endValue, 1).limit(nPerPage)
         return endValue
     currentKey = MinKey
     if currentKey is not None:
-        currentKey = printGames(currentKey, 5)
+        currentKey = printGames(currentKey, 4)
     return render_template("index.html",
                            game_list=currentKey)
 
