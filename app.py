@@ -16,33 +16,14 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 mongo = PyMongo(app)
 
 # Games
-"""page_size = 5
-    last_id = None
-    if last_id is None:
-        cursor = mongo.db.game_list.find({"name": {"$exists": True}
-                                          }).limit(page_size)
-    else:
-        cursor = mongo.db.game_list.find(
-            {"name": {"$gt": last_id}}).limit(page_size)
-    data = print([x for x in cursor])
-    if not data:
-        return "None", "None"
-    last_id = data[-1]["name"]
-    return data, last_id"""
 
 
 @app.route("/")  # Display main page with paginated list
 @app.route("/game-list")
 def game_list():
-    def printGames(startValue, nPerPage):
-        endValue = [None]
-        for endValue in endValue:
-            endValue = "_id"
-        mongo.db.game_list.find().sort(endValue, 1).limit(nPerPage)
-        return endValue
     currentKey = MinKey
     if currentKey is not None:
-        currentKey = printGames(currentKey, 4)
+        currentKey = mongo.db.game_list.find().sort("_id", 1).limit(7)
     return render_template("index.html",
                            game_list=currentKey)
 
@@ -161,36 +142,6 @@ Add in the CRUD architecture:
 * Read: Done
 * Update: Reviews - Added (Works, have to return to the main page)
 * Delete: Reviews - Added (Works, have to return to the main page)
-
-TODO:
-
-https://www.codementor.io/@arpitbhayani/fast-and-efficient-pagination-in-mongodb-9095flbqr
-
-def idlimit(page_size, last_id=None):
-    page_size = 2
-    # Function returns `page_size` number of documents after last_id
-    and the new last_id. #
-
-    if last_id is None:
-        # When it is first page
-        cursor = mongo.db['game_list'].find().limit(page_size)
-    else:
-        cursor = mongo.db['game_list'].find(
-                {'_id': {'$gt': last_id}}).limit(page_size)
-
-    # Get the data
-    data = [x for x in cursor]
-
-    if not data:
-        # No documents left
-        return None, None
-
-    # Since documents are naturally ordered with _id, last document will
-    # have max id.
-    last_id = data[-1]['_id']
-
-    # Return data and last_id
-    return data, last_id
 
 TODO:
     * Create a function to delete a single key:value pair from a
