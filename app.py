@@ -21,11 +21,14 @@ mongo = PyMongo(app)
 @app.route("/")  # Display main page with paginated list
 @app.route("/game-list")
 def game_list():
+    next_page = mongo.db.game_list.find().sort("_id", 1).skip(5).limit(5)
+    previous_page = mongo.db.game_list.find().sort("_id", 1).skip(0).limit(5)
     currentKey = MinKey
     if currentKey is not None:
-        currentKey = mongo.db.game_list.find().sort("_id", 1).limit(7)
-    return render_template("index.html",
-                           game_list=currentKey)
+        currentKey = mongo.db.game_list.find().sort("_id", 1).skip(0).limit(5)
+    return render_template("index.html", game_list=currentKey,
+                           next_page=next_page, previous_page=previous_page
+                           )
 
 
 @app.route("/add-game")  # Display form page to add game
