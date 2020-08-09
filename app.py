@@ -4,12 +4,11 @@ from flask import Flask, render_template, redirect, request, url_for, Blueprint
 from flask_paginate import Pagination, get_page_parameter
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-from bson.min_key import MinKey
 if path.exists("env.py"):
     import env
 
 app = Flask(__name__)
-mod = Blueprint('games', __name__)
+mod = Blueprint("games", __name__)
 
 app.config["MONGO_DBNAME"] = "third_milestone_project"
 app.config["MONGO_URI"] = os.getenv("MONGO_URI")
@@ -22,16 +21,19 @@ mongo = PyMongo(app)
 
 @app.route("/")
 @app.route("/game-list")
-def game_list(limit=4):
+def game_list():
     search = False
     q = request.args.get("q")
     if q:
         search = True
 
+    per_page = 5
     page = request.args.get(get_page_parameter(), type=int, default=1)
+    offset = (page - 1) * per_page
 
     games = mongo.db.game_list.find()
-    pagination = Pagination(page=page, per_page=4, total=games.count(),
+    pagination = Pagination(per_page=per_page, page=page,
+                            offset=offset, total=games.count(),
                             search=search, record_name="games",
                             css_framework="bootstrap4")
 
