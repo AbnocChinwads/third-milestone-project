@@ -4,7 +4,9 @@
 
 <h2 class="heading-style-uppercase">Video games for review</h2>
 <!--Table generates a list of relevant information from database values-->
-<table id="paginate" class="table table-bordered">
+{{ pagination.info }}
+{{ pagination.links }}
+<table class="table table-bordered">
 	<tr>
 		<th></th>
 		<th>
@@ -18,10 +20,10 @@
 		</th>
 		<th></th>
 	</tr>
-	{% for game in game_list %}
+	{% for game in games %}
 	<tr>
 		<td>
-			{{ loop.index }}.
+			{{ loop.index + pagination.skip}}.
 		</td>
 		<td>
 			<!--Links to a page that displays the game title as a h2-->
@@ -44,28 +46,6 @@
 	{% endfor %}
 </table>
 <!--Pagination buttons-->
-<nav aria-label="Page navigation">
-	<ul class="pagination justify-content-center">
-		<li class="page-item">
-			<a class="round page-link" href="{{ previous_page }}">
-				<span aria-hidden="true">&laquo;</span>
-				<span class="sr-only">Previous</span>
-			</a>
-		</li>
-        {% for button in buttons %}
-		<li class="page-item">
-            <a class="round page-link" href="{{ page_link }}">
-                {{ loop.index }}
-            </a>
-        </li>
-        {% endfor %}
-		<li class="page-item">
-			<a class="round page-link" href="{{ next_page }}">
-				<span aria-hidden="true">&raquo;</span>
-				<span class="sr-only">Next</span>
-			</a>
-		</li>
-	</ul>
-</nav>
+{{ pagination.links }}
 
 {% endblock %}
