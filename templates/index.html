@@ -4,7 +4,6 @@
 
 <h2 class="heading-style-uppercase">Video games for review</h2>
 <!--Table generates a list of relevant information from database values-->
-{{ pagination.info }}
 <table class="table table-bordered">
 	<tr>
 		<th></th>
@@ -45,6 +44,7 @@
 	{% endfor %}
 </table>
 <!--Pagination buttons-->
-{{ pagination.links }}
+<div class="heading-centred">{{ pagination.info }}</div>
+<div class="heading-centred">{{ pagination.links }}</div>
 
 {% endblock %}

@@ -61,10 +61,6 @@ td {
   text-decoration: none; /* Remove underline on hover over anchor */
 }
 
-.round {
-  border-radius: 50% !important;
-}
-
 /*--------------------------------------------------------- Pagination*/
 
 .pagination-page-info {
@@ -84,7 +80,7 @@ td {
 }
 
 .page-link {
-    border-radius: 50%;
+    border-radius: 50% !important;
 }
 
 /*--------------------------------------------------------- Anchors - all*/

@@ -31,7 +31,7 @@ def game_list():
     page = request.args.get(get_page_parameter(), type=int, default=1)
     offset = (page - 1) * per_page
 
-    games = mongo.db.game_list.find()
+    games = mongo.db.game_list.find().limit(per_page).skip(offset)
     pagination = Pagination(per_page=per_page, page=page,
                             offset=offset, total=games.count(),
                             search=search, record_name="games",
