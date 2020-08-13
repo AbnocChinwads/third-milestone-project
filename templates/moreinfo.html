@@ -12,7 +12,7 @@
 
 <div class="row no-gutters">
 	<div class="col-3 mx-auto">
-        <!--Shows the game image-->
+		<!--Shows the game image-->
 		<img src="{{cat.game_image}}" alt="image of game cover art">
     </div>
 </div>
@@ -22,32 +22,34 @@
 		By Source, Fair Use
 	</a>
 </div>
+
 <!--Takes you to a page that shows all the game information and allows you to change it-->
 <a href="{{ url_for('edit_game', game_list_id=game._id) }}" class="btn btn-sm btn-margin btn-success">
-    Edit Info
+	<i class="fas fa-edit" aria-hidden="true"></i>
 </a>
+
 <!--Takes you to a page that displays a textarea-->
 <a href="{{ url_for('add_review', game_list_id = game._id) }}" class="btn btn-sm btn-margin btn-primary">
-    Add Review
+	<i class="fas fa-plus-square" aria-hidden="true"></i>
 </a>
 
-<div class="col">
-    <!--Shows all of the reviews relevant to the game-->
-	{% for reviews in review %}
+<!--Shows all of the reviews relevant to the game-->
+{% for reviews in review %}
 
-	<p>{{reviews.review}}</p>
-    <!--Takes you to a page that shows the review in a textarea and allows you to change it-->
-	<a class="btn btn-sm btn-margin btn-success" 
-    href="{{ url_for('edit_review', game_list_id = game._id, review_id = reviews._id) }}">
-        Edit Review
-    </a>
-    <!--Removes the review from the database-->
-	<a class="btn btn-sm btn-margin btn-warning" href="{{ url_for('delete_review', review_id = reviews._id) }}">
-        Delete Review
-    </a>
+<p>{{reviews.review}}</p>
 
-	{% endfor %}
-</div>
+<!--Takes you to a page that shows the review in a textarea and allows you to change it-->
+<a class="btn btn-sm btn-margin btn-success"
+	href="{{ url_for('edit_review', game_list_id = game._id, review_id = reviews._id) }}">
+	<i class="fas fa-edit" aria-hidden="true"></i>
+</a>
+
+<!--Removes the review from the database-->
+<a class="btn btn-sm btn-margin btn-warning" href="{{ url_for('delete_review', review_id = reviews._id) }}">
+	<i class="fas fa-trash" aria-hidden="true"></i>
+</a>
+
+{% endfor %}
 
 {% endif %}
 

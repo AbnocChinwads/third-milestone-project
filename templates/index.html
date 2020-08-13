@@ -8,7 +8,7 @@
 	<tr>
 		<th></th>
 		<th>
-			Name
+			Reviews
 		</th>
 		<th>
 			Genre
@@ -26,7 +26,7 @@
 		<td>
 			<!--Links to a page that displays the game title as a h2-->
 			<a class="clickable-name" href="{{ url_for('more_info', game_list_id=game._id)}}">
-				<i class="fas fa-link"></i> {{game.game_name}}
+				<i class="fas fa-link" aria-hidden="true"></i> {{game.game_name}}
 			</a>
 		</td>
 		<td>
@@ -37,14 +37,15 @@
 		</td>
 		<td>
 			<a class="btn btn-sm btn-margin btn-danger" href="{{ url_for('delete_game', game_list_id=game._id) }}">
-				Delete
+			    <i class="fas fa-trash" aria-hidden="true"></i>
 			</a>
 		</td>
 	</tr>
 	{% endfor %}
 </table>
+
 <!--Pagination buttons-->
-<div class="heading-centred">{{ pagination.info }}</div>
-<div class="heading-centred">{{ pagination.links }}</div>
+{{ pagination.info }}
+{{ pagination.links }}
 
 {% endblock %}
