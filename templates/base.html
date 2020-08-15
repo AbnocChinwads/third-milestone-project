@@ -41,9 +41,9 @@
 									Login <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
 								</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<form action="#" method="GET">
-                                        <input type="text" name="username" id="username" value="Username">
-                                        <input type="password" name="password" id="password" value="Password">
+									<form action="{{ url_for('login') }}" method="POST">
+                                        <input type="email" name="email" id="email" value="email">
+                                        <input type="password" name="password" id="password" value="password">
 										<div class="text-center btn-margin">
                                         <input class="btn btn-sm btn-outline-primary" 
                                         type="submit" value="Submit" method="post">

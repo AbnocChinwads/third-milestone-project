@@ -171,16 +171,19 @@ TODO:
 """
 # Login system
 
-"""
-@app.route("/<username>")
+
+"""@app.route("/", methods=["POST"])
 def login():
-    return render_template("index.html")
-"""
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+    return render_template(url_for("index.html"),
+                           email=email, password=password)"""
 
 
 @app.route("/contactus")  # Contact information page poss using an email API
 def contact():
-    return render_template("contact.html")
+    return redirect("contact.html")
 
 
 if __name__ == "__main__":
