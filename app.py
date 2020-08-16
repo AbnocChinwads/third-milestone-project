@@ -1,14 +1,18 @@
 import os
 from os import path
-from flask import Flask, render_template, redirect, request, url_for, Blueprint
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask import Flask, flash, render_template, redirect, request, url_for, Blueprint
 from flask_paginate import Pagination, get_page_parameter
 from flask_pymongo import PyMongo
+from flask_login import LoginManager, UserMixin, current_user, login_user
 from bson.objectid import ObjectId
 if path.exists("env.py"):
     import env
 
 app = Flask(__name__)
 mod = Blueprint("games", __name__)
+login_manager = LoginManager(app)
+login_manager.init_app(app)
 
 app.config["MONGO_DBNAME"] = "third_milestone_project"
 app.config["MONGO_URI"] = os.getenv("MONGO_URI")
@@ -39,7 +43,7 @@ def game_list():
 
     return render_template("index.html",
                            games=games,
-                           pagination=pagination,
+                           pagination=pagination
                            )
 
 
@@ -172,13 +176,35 @@ TODO:
 # Login system
 
 
-"""@app.route("/", methods=["POST"])
-def login():
-    email = request.form.get('email')
-    password = request.form.get('password')
+"""class User(UserMixin, mongo.db.user_data):
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
 
-    return render_template(url_for("index.html"),
-                           email=email, password=password)"""
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+
+@login_manager.user_loader
+def load_user(user_data_id):
+    user_id = mongo.db.user_data({"_id": ObjectId(user_data_id)})
+    return User.query.get(user_id)
+
+
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return redirect(url_for('login'))
+        login_user(user, remember=form.remember_me.data)
+        return redirect(url_for('index'))
+    return render_template('login.html', title='Sign In', form=form)"""
+
+# Contact Page
 
 
 @app.route("/contactus")  # Contact information page poss using an email API
