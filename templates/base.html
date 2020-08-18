@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 	<!--Custom CSS-->
 	<link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='images/joystick.ico')}}" type="image/x-icon">
+	<link rel="shortcut icon" href="{{ url_for('static', filename='images/joystick.ico')}}" type="image/x-icon">
 	<title>Third Milestone Project</title>
 </head>
 
@@ -28,32 +28,37 @@
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="navbar-nav mr-auto">
 							<li class="nav-item">
-								<a class="nav-link" href="{{ url_for('game_list')}}">Home 
-                                <i class="fas fa-home" aria-hidden="true"></i></a>
+								<a class="nav-link" href="{{ url_for('game_list')}}">Home
+									<i class="fas fa-home" aria-hidden="true"></i></a>
 							</li>
-                            <li class="nav-item">
-								<a class="nav-link" href="{{ url_for('add_game')}}">Add Game 
-                                <i class="fas fa-plus-square" aria-hidden="true"></i></a>
+							<li class="nav-item">
+								<a class="nav-link" href="{{ url_for('add_game')}}">Add Game
+									<i class="fas fa-plus-square" aria-hidden="true"></i></a>
 							</li>
+							{% if current_user.is_anonymous %}
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
 									data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									Login <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
 								</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<form action="#" method="POST">
-                                        <input type="email" name="email" id="email" value="email">
-                                        <input type="password" name="password" id="password" value="password">
+									<form action="{{ url_for('login')}}" method="POST">
+										<input type="email" name="email" id="email" value="email">
+										<input type="password" name="password" id="password" value="password">
 										<div class="text-center btn-margin">
-                                        <input class="btn btn-sm btn-outline-primary" 
+											<input class="btn btn-sm btn-outline-primary"
                                         type="submit" value="Submit" method="post">
                                         </div>
-						            </form>
+									</form>
 								</div>
 							</li>
+							{% else %}
+                            <h6>Hi, {{ current_user.username }}!</h6>
+							<a href="{{ url_for('logout') }}">Logout</a>
+							{% endif %}
 							<li class="nav-item">
-								<a class="nav-link" href="{{ url_for('contact')}}">Contact Us! 
-                                <i class="fas fa-tasks" aria-hidden="true"></i></a>
+								<a class="nav-link" href="{{ url_for('contact')}}">Contact Us!
+									<i class="fas fa-tasks" aria-hidden="true"></i></a>
 							</li>
 						</ul>
 					</div>
