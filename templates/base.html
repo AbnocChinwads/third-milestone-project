@@ -37,13 +37,13 @@
 							</li>
 							{% if current_user.is_anonymous %}
 							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+								<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
 									data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									Login <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
 								</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<form action="{{ url_for('login')}}" method="POST">
-										<input type="email" name="email" id="email" value="email">
+									<form action="{{ url_for('login') }}" method="POST">
+										<input type="text" name="username" id="username" value="username">
 										<input type="password" name="password" id="password" value="password">
 										<div class="text-center btn-margin">
 											<input class="btn btn-sm btn-outline-primary"

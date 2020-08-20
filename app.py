@@ -1,10 +1,12 @@
 import os
 from os import path
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask import Flask, flash, render_template, redirect, request, url_for, Blueprint
+from flask import (Flask, flash, render_template,
+                   redirect, request, url_for, Blueprint)
 from flask_paginate import Pagination, get_page_parameter
 from flask_pymongo import PyMongo
-from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user
+from flask_login import (LoginManager, UserMixin, current_user,
+                         login_user, logout_user)
 from bson.objectid import ObjectId
 if path.exists("env.py"):
     import env
@@ -13,7 +15,7 @@ app = Flask(__name__)
 mod = Blueprint("games", __name__)
 login_manager = LoginManager(app)
 login_manager.init_app(app)
-login_manager.login_view("login")
+login_manager.login_view = "login"
 
 app.config["MONGO_DBNAME"] = "third_milestone_project"
 app.config["MONGO_URI"] = os.getenv("MONGO_URI")
@@ -177,39 +179,68 @@ TODO:
 # Login system
 
 
-class User(UserMixin, mongo.db.user_data):
+@login_manager.user_loader
+def load_user(user_data_id):
+    user_id = mongo.db.user_data({"_id": ObjectId(user_data_id)})
+    return user_id.first()
+
+
+@app.route("/login", methods=["POST"])
+def login():
+    info = mongo.db.user_data.find_one()
+    username = info.get("username", "Daniel")
+    password = info.get("password", "test")
+    user = username, password
+    if current_user.is_authenticated:
+        login_user(user)
+        return redirect(url_for("game_list"))
+    else:
+        return render_template("index.html", title="Sign In")
+    if user is None or not user.check_password(mongo.db.user_data.password):
+        flash("Invalid username or password")
+        return redirect(url_for("game_list"))
+
+
+@app.route("/logout", methods=["POST"])
+def logout():
+    logout_user()
+    return redirect(url_for("game_list"),
+                    {"data": {"message": "logout success"}})
+
+
+"""@app.route("/user-info", methods=["POST"])
+def user_info():
+    if current_user.is_authenticated:
+        resp = {"result": 200,
+                "data": current_user.to_json()}
+    else:
+        resp = {"result": 401,
+                "data": {"message": "user no login"}}
+    return jsonify(**resp)"""
+
+
+class User(UserMixin):
+    name = mongo.db.user_data.username
+    password = mongo.db.user_data.password
+    email = mongo.db.user_data.email
+
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return mongo.db.user_data._id
+
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
-
-
-@login_manager.user_loader
-def load_user(user_data_id):
-    user_id = mongo.db.user_data({"_id": ObjectId(user_data_id)})
-    return User.query.get(user_id)
-
-
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    if current_user.is_authenticated:
-        return redirect(url_for("index"))
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
-        if user is None or not user.check_password(form.password.data):
-            flash("Invalid username or password")
-            return redirect(url_for("login"))
-        login_user(user, remember=form.remember_me.data)
-        return redirect(url_for("index"))
-    return render_template("login.html", title="Sign In", form=form)
-
-
-@app.route("/logout")
-def logout():
-    logout_user()
-    return redirect(url_for("index"))
 
 # Contact Page
 

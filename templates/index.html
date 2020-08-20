@@ -16,7 +16,9 @@
 		<th>
 			PEGI Rating
 		</th>
+        {% if current_user.is_authenticated %}
 		<th></th>
+        {% endif %}
 	</tr>
 	{% for game in games %}
 	<tr>
@@ -35,7 +37,7 @@
 		<td>
 			{{game.game_pegi_rating}}
 		</td>
-        {% if isLoggedIn %}
+        {% if current_user.is_authenticated %}
 		<td>
 			<a class="btn btn-sm btn-margin btn-danger" href="{{ url_for('delete_game', game_list_id=game._id) }}">
 			    <i class="fas fa-trash" aria-hidden="true"></i>
