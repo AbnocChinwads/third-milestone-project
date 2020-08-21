@@ -7,6 +7,7 @@ if(darkMode) {
     $("nav").toggleClass("navbar-dark bg-dark");
     $("table").toggleClass("table-colour");
     $("td a").toggleClass("table-anchors");
+    $(".page-link").toggleClass("page-link-dark");
     $("footer").toggleClass("footer-dark");
     $("#footer").children().toggleClass("anchor-styling-dark");
 }
@@ -24,8 +25,9 @@ $("#darkModeSwitch").change(function() {
     
     $("body").toggleClass("body-dark", darkMode);
     $("nav").toggleClass("navbar-dark bg-dark", darkMode);
-    $("table").toggleClass("table-colour");
-    $("td a").toggleClass("table-anchors");
+    $("table").toggleClass("table-colour", darkMode);
+    $("td a").toggleClass("table-anchors", darkMode);
+    $(".page-link").toggleClass("page-link-dark",darkMode);
     $("footer").toggleClass("footer-dark", darkMode);
     $("#footer").children().toggleClass("anchor-styling-dark", darkMode);
 });

@@ -60,6 +60,7 @@ def add_game():
 def insert_game():
     games = mongo.db.game_list
     games.insert_one(request.form.to_dict())
+    flash("Successfully added game to list", "success")
     return redirect(url_for("game_list"))
 
 
@@ -94,6 +95,7 @@ def update_game(game_list_id):
         "game_image": request.form.get("game_image"),
         "fair_use": request.form.get("fair_use")
     })
+    flash("Successfully updated game information", "success")
     return redirect(url_for("game_list"))
 
 
@@ -102,6 +104,7 @@ def update_game(game_list_id):
 def delete_game(game_list_id):
     mongo.db.game_list.delete_one({"_id": ObjectId(game_list_id)})
     mongo.db.reviews.delete_many({"game_id": ObjectId(game_list_id)})
+    flash("Successfully deleted game", "success")
     return redirect(url_for("game_list"))
 
 # Reviews
@@ -124,6 +127,7 @@ def insert_review():
         "game_id": game_id,
         "review": request.form.get("review")
     })
+    flash("Successfully created review", "success")
     return redirect(url_for("game_list"))
 
 
@@ -147,6 +151,7 @@ def update_review(review_id):
         "game_id": game_id,
         "review": request.form.get("review")
     })
+    flash("Successfully updated review", "success")
     return redirect(url_for("game_list"))
 
 
@@ -154,6 +159,7 @@ def update_review(review_id):
 @app.route("/delete-review/<review_id>")
 def delete_review(review_id):
     mongo.db.reviews.delete_one({"_id": ObjectId(review_id)})
+    flash("Successfully deleted review", "success")
     return redirect(url_for("game_list"))
 
 
@@ -197,7 +203,7 @@ def login():
     else:
         return render_template("index.html", title="Sign In")
     if user is None or not user.check_password(mongo.db.user_data.password):
-        flash("Invalid username or password")
+        flash("Invalid username or password", "warning")
         return redirect(url_for("game_list"))
 
 
