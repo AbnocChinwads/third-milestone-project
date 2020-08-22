@@ -15,8 +15,6 @@ They would visit this website and have the ability to add specific details about
     * As a casual gamer, I want to check out what other people are saying about games, and to see if it sounds like I would enjoy them.
     
     * As someone who doesn't earn a high amount, I want the ability to check out what other people think of a game before I spend my hard earned money on it.
-    
-Link to wireframes: (https://drive.google.com/file/d/1Xm1fj7bj0bNbwhSmmLjO9SjhNgh1ZPai/view?usp=sharing)
 
 ## Features
 
