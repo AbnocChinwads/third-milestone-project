@@ -1,21 +1,15 @@
 import os
 from os import path
-from werkzeug.security import generate_password_hash, check_password_hash
 from flask import (Flask, flash, render_template,
                    redirect, request, url_for, Blueprint)
 from flask_paginate import Pagination, get_page_parameter
 from flask_pymongo import PyMongo
-from flask_login import (LoginManager, UserMixin, current_user,
-                         login_user, logout_user)
 from bson.objectid import ObjectId
 if path.exists("env.py"):
     import env
 
 app = Flask(__name__)
 mod = Blueprint("games", __name__)
-login_manager = LoginManager(app)
-login_manager.init_app(app)
-login_manager.login_view = "login"
 
 app.config["MONGO_DBNAME"] = "third_milestone_project"
 app.config["MONGO_URI"] = os.getenv("MONGO_URI")
@@ -148,9 +142,9 @@ def update_review(review_id):
     reviews = mongo.db.reviews
     reviews.update({"_id": ObjectId(review_id)},
                    {
-        "game_id": game_id,
-        "review": request.form.get("review")
-    })
+                    "game_id": game_id,
+                    "review": request.form.get("review")
+                    })
     flash("Successfully updated review", "success")
     return redirect(url_for("game_list"))
 
@@ -164,13 +158,6 @@ def delete_review(review_id):
 
 
 """
-Add in the CRUD architecture:
-
-* Create: Reviews - Added (Works, have to return to the main page)
-* Read: Done
-* Update: Reviews - Added (Works, have to return to the main page)
-* Delete: Reviews - Added (Works, have to return to the main page)
-
 TODO:
     * Create a function to delete a single key:value pair from a
     * dataset by selecting the value you wish to remove
@@ -182,86 +169,8 @@ TODO:
     * usernames and passwords
     * Allow only the deletion of reviews the logged in user has posted
 """
-# Login system
-
-class User(UserMixin):
-    name = mongo.db.user_data.username
-    password = mongo.db.user_data.password
-    email = mongo.db.user_data.email
-
-    def is_authenticated(self):
-        return True
-
-    def is_active(self):
-        return True
-
-    def is_anonymous(self):
-        return False
-
-    def get_id(self):
-        return mongo.db.user_data._id.decode("utf-8")
-
-    def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
-
-
-@login_manager.user_loader
-def load_user(user_data_id):
-    user_id = mongo.db.user_data({
-                                  "_id": ObjectId(user_data_id)
-                                  }).decode("utf-8")
-    return User.get(user_id)
-
-
-@app.route("/login", methods=["POST"])
-def login():
-    username = request.form.get("username")
-    password = request.form.get("password")
-    user = mongo.db.user_data.find_one({
-                                        "username": username,
-                                        "password": password
-                                        })
-    if current_user.is_authenticated:
-        login_user(user)
-        flash("Login successful", "success")
-        return redirect(url_for("game_list"))
-    else:
-        flash("Could not login", "warning")
-        return redirect(url_for("game_list"))
-        """return render_template("index.html", title="Sign In")
-    if user is None or not user.check_password(mongo.db.user_data.password):
-        flash("Invalid username or password", "warning")
-        return redirect(url_for("game_list"))"""
-
-
-@app.route("/logout", methods=["POST"])
-def logout():
-    logout_user()
-    flash("Logout successful", "success")
-    return redirect(url_for("game_list"))
-
-
-"""@app.route("/user-info", methods=["POST"])
-def user_info():
-    if current_user.is_authenticated:
-        resp = {"result": 200,
-                "data": current_user.to_json()}
-    else:
-        resp = {"result": 401,
-                "data": {"message": "user no login"}}
-    return jsonify(**resp)"""
-
-# Contact Page
-
-
-@app.route("/contactus")  # Contact information page poss using an email API
-def contact():
-    return redirect("contact.html")
 
 
 if __name__ == "__main__":
     app.run(host=os.getenv("IP"),
-            port=int(os.getenv("PORT")), debug=True)
+            port=int(os.getenv("PORT")), debug=False)

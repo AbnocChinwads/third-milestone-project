@@ -35,31 +35,6 @@
 								<a class="nav-link" href="{{ url_for('add_game')}}">Add Game
 									<i class="fas fa-plus-square" aria-hidden="true"></i></a>
 							</li>
-							{% if current_user.is_anonymous %}
-							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
-									data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									Login <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
-								</a>
-								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<form action="{{ url_for('login') }}" method="POST">
-										<input type="text" name="username" id="username" value="username">
-										<input type="password" name="password" id="password" value="password">
-										<div class="text-center btn-margin">
-											<input class="btn btn-sm btn-outline-primary"
-                                        type="submit" value="Submit" method="post">
-                                        </div>
-									</form>
-								</div>
-							</li>
-							{% else %}
-                            <h6>Hi, {{ current_user.username }}!</h6>
-							<a href="{{ url_for('logout') }}">Logout</a>
-							{% endif %}
-							<li class="nav-item">
-								<a class="nav-link" href="{{ url_for('contact')}}">Contact Us!
-									<i class="fas fa-tasks" aria-hidden="true"></i></a>
-							</li>
 						</ul>
 					</div>
 					<div class="col-7">
@@ -99,7 +74,8 @@
 					<i class="fab fa-twitter-square" aria-hidden="true"></i></a>
 				<a class="anchor-styling" href="https://www.instagram.com/" target="_blank">
 					<i class="fab fa-instagram" aria-hidden="true"></i></a>
-				<br>Copyright information for images goes here
+				<a class="anchor-styling" href="mailto:dgnreviews@gmail.com" target="_blank">
+                    <i class="fas fa-at" aria-hidden="true"></i></a>
             </div>
 			</div>
 	</footer>
