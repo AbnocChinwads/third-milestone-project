@@ -47,6 +47,11 @@ h1 {
   background-color: #343a40 !important;
 }
 
+.close {
+    float: right;
+    padding: 1px 5px;
+}
+
 /*--------------------------------------------------------- Table*/
 
 td {

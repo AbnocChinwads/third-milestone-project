@@ -7,9 +7,9 @@
 {% if messages %}
 {% for category, message in messages %}
     <div class="alert alert-{{ category }}">
-        <button id="hide" class="close" aria-label="Close">
+        <div id="hide" class="btn close" aria-label="Close">
             <span aria-hidden="true">&times;</span>
-        </button>
+        </div>
         {{ message }}
     </div>
 {% endfor %}
@@ -65,11 +65,5 @@
 <!--Pagination buttons-->
 {{ pagination.info }}
 {{ pagination.links }}
-
-<script>
-    $( "button" ).on("click", function() {
-        $( "#destroy" ).remove();
-    });
-</script>
 
 {% endblock %}
