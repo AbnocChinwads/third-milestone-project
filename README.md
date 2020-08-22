@@ -1,7 +1,3 @@
-https://stackoverflow.com/questions/19704477/adding-close-button-in-div-to-close-the-box
-
-https://flask.palletsprojects.com/en/1.1.x/patterns/flashing/
-
 # Third Milestone Project
 
 For this project I chose to build a web app that allows people to add details about games to a webpage, and to leave reviews on any games added.
@@ -113,3 +109,5 @@ If you want to run my code locally, choose the IDE you’re most comfortable wit
 #### Acknowledgements
 
 * I received inspiration for using Flask-Paginate and flash messages from google searches and stackoverflow queries on how to best paginate and display messages when using the Flask framework.
+
+* I used stackoverflow to find the solution to how best to close the flash messages (https://stackoverflow.com/questions/19704477/adding-close-button-in-div-to-close-the-box).
